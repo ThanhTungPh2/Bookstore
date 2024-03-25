@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/book_store?userSSL=false
+        password: tung
+        username: root
+    security:
+        user:
+            password: tung
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+
+application:
+    security:   
+        jwt:
+            secret-key: 56D388AFE14FE5DFF1CE2CD78C2F2214A41E8E7FF93AAE45FC6D633474BA5804
+            expiration: 86400000 #a day
+
+
