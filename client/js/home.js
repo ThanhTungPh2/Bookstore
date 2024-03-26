@@ -1,24 +1,25 @@
 import { Product } from "./Model/Products.js";
-import { Fetch } from "../js/Fetch.js";
+
 import { Category } from "./Model/Category.js";
 
 //Load product và sách mới nhất
 const productNew = document.getElementById('new products');
-let dataProduct = await Fetch.fetchGet('http://localhost:8080/products')
-dataProduct.slice(-4).forEach(element => {
-   productNew.appendChild(new Product(element).item());
-});
+$.get('http://localhost:8080/products/all', function(data) {
+   data.slice(-4).forEach(element => {
+      productNew.appendChild(new Product(element).item());
+   });
+})
 
 //Load sách theo các thể loại
 const categoryList = document.getElementById("category_list")
-let dataCategory = await Fetch.fetchGet('http://localhost:8080/category')
-dataCategory.forEach(element => {
-   let list_product = [];
-   dataProduct.filter(data => data.categoryId == element.id ).forEach(e => {
-      list_product.push(new Product(e))
+$.get("http://localhost:8080/category", function(data) {
+   data.forEach(element => {  
+      $.get('http://localhost:8080/products/byCategory?category_id='+element['id'], function(data2) {
+         categoryList.appendChild(new Category(element,data2).item())      
+      })
    })
-   categoryList.appendChild(new Category(element,list_product).item());
 })
+
 
 
 let userBox = document.querySelector('.header .header-2 .user-box');
@@ -46,4 +47,7 @@ window.onscroll = () =>{
    }
 }
 
+$.get('http://localhost:8080/products/byCategory?category_id=1', function(data) {
+   console.log(data)
+})
 

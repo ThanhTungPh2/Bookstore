@@ -46,6 +46,11 @@ public class productsServiceImpl implements productsService{
         pRepository.save(p);
         return "Cập nhật sản phẩm thành công";
     }
+
+    @Override
+    public List<Products> getProductsByCategoryId(int id) {
+        return pRepository.findByCategoryId(id);
+    }
     
     
 

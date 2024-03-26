@@ -24,8 +24,8 @@ import static com.thanhtung.bookstore.model.Role.USER;;
 public class SecurityConfiguration {
     
     private final String[] WHITE_LIST_URL_GET = {
-        "/products",
-        "/category"
+        "/products/**",
+        "/category/**"
     };
 
     private final String[] WHITE_LIST_URL_POST = {

@@ -1,6 +1,7 @@
 package com.thanhtung.bookstore.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thanhtung.bookstore.service.productsService;
@@ -27,14 +28,19 @@ public class productsController {
         this.pService = pService;
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<Products> getAllProducts() {
         return pService.getALLProducts();
     }
 
-    @GetMapping("{productId}")
-    public Products geProducts(@PathVariable("productId") int id){
+    @GetMapping("/id")
+    public Products getProducts(@RequestParam("id") int id){
         return pService.getProducts(id);
+    }
+
+    @GetMapping("/byCategory")
+    public List<Products> getProductsByCategoryId(@RequestParam("category_id") int id){
+        return pService.getProductsByCategoryId(id);
     }
 
     @PostMapping()
