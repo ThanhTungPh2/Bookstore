@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('.message').hide()
     $('#loginForm').submit(function(event) {
         // Ngăn chặn hành vi mặc định của form (tải lại trang)
         event.preventDefault();
@@ -32,12 +33,19 @@ $(document).ready(function() {
                 } else {
                     console.error("No token received from server.");
                 }
+
+                //Hiển thị message
+                $('.message span').html('Đăng nhập thành công!')
+                $('.message').show()
             },
             error: function(xhr, status, error) {
-                $("#message_wrong").html("Tài khoản hoặc mật khẩu không chính xác")
+                //Hiển thị message
+                $('.message span').html('Tài khoản hoặc mật khẩu không chính xác!')
+                $('.message').show()
             }
         });
     });
+    $("#loginForm input").focus(function() { $(".message").hide() })
+    $('.message i').click(function() { $(".message").hide() })
 });
 
-$("#loginForm input").focus(function() { $("#message_wrong").html("") })

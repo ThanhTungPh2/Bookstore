@@ -3,12 +3,14 @@ package com.thanhtung.bookstore.auth;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.thanhtung.bookstore.repository.usersRepository;
 import com.thanhtung.bookstore.config.JwtService;
-import com.thanhtung.bookstore.model.Role;
 import com.thanhtung.bookstore.model.Users;
 
 import lombok.RequiredArgsConstructor;
@@ -23,19 +25,20 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager; 
 
     public AuthenticationResponse register (@RequestBody RegisterRequest request) {
+
         Users user = Users.builder()
             .name(request.getName())
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
-            .role(Role.ADMIN)
+            .role(request.getRole())
             .build();
-        System.err.println(user);
+
         repository.save(user);
 
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
-    } 
+    }
 
     public AuthenticationResponse authenticate (@RequestBody AuthenticationRequest request) {
         authenticationManager.authenticate(

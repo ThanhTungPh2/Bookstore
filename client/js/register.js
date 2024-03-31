@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('.message').hide()
     $('#regisForm').submit(function(event) {
         // Ngăn chặn hành vi mặc định của form (tải lại trang)
         event.preventDefault();
@@ -9,11 +10,16 @@ $(document).ready(function() {
         var name = $('input[name="name"]').val();
         var cpassword = $('input[name="cpassword"]').val();
         
+        if (cpassword != password) {
+            $('#message').html('Confirm password sai')
+            return
+        } 
         // Dữ liệu để gửi lên server
         var formData = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            role: 'USER'
         };
         console.log(JSON.stringify(formData))
         // Gửi request Ajax
@@ -24,12 +30,16 @@ $(document).ready(function() {
             dataType: 'json',
             contentType:"application/json; charset=utf-8",
             success: function(response) {
-                console.log(response);
+                $('.message span').html('Đăng ký thành công!')
+                $('.message').show()
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-                console.log(status, error)
+                $('.message span').html('Email đã được đăng ký!')
+                $('.message').show()
             }
         });
     });
+    $("#regisForm input").focus(function() { $("#message").html("") })
+    $('.message i').click(function() { $(".message").hide() })
 });
+
