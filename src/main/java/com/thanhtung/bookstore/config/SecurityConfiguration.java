@@ -25,7 +25,8 @@ public class SecurityConfiguration {
     
     private final String[] WHITE_LIST_URL_GET = {
         "/products/**",
-        "/category/**"
+        "/category/**",
+        "/orders/**"
     };
 
     private final String[] WHITE_LIST_URL_POST = {

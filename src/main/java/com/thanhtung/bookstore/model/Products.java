@@ -17,7 +17,7 @@ public class Products {
     private String author;
     private Double price;
     private Double discount;
-    @Column(name = "newprice")
+    @Column(name = "new_price")
     private Double newPrice;
     @Column(name = "category_id")
     private int categoryId;

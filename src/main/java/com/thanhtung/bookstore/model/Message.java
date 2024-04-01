@@ -1,5 +1,6 @@
 package com.thanhtung.bookstore.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,8 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userid;
+    @Column(name = "user_id")
+    private int userId;
     private String number;
     private String message;
     

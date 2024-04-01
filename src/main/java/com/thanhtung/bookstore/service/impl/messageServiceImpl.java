@@ -31,7 +31,7 @@ public class messageServiceImpl implements messageService {
 
     @Override
     public List<Message> getAllMessageByUserId(int id) {
-        return mRepository.findByUserid(id);
+        return mRepository.findByUserId(id);
     }
 
     @Override

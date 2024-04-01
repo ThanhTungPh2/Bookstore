@@ -6,5 +6,5 @@ import com.thanhtung.bookstore.model.Message;
 import java.util.List;
 
 public interface messageRepository extends JpaRepository<Message, Integer>{
-    List<Message> findByUserid(int userId);
+    List<Message> findByUserId(int userId);
 }

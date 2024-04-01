@@ -8,39 +8,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thanhtung.bookstore.model.Oders;
-import com.thanhtung.bookstore.service.odersService;
+import com.thanhtung.bookstore.model.Orders;
+import com.thanhtung.bookstore.service.ordersService;
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/oders")
-public class odersController {
+@RequestMapping("/orders")
+public class ordersController {
     
-    odersService oService;
+    ordersService oService;
 
-    public odersController(odersService oService) {
+    public ordersController(ordersService oService) {
         this.oService = oService;
     }
 
-    @GetMapping("{oserId}")
-    public Oders getOder(@PathVariable("oderId") int id) {
+    @GetMapping("{orderId}")
+    public Orders getOder(@PathVariable("orderId") int id) {
         return oService.getOder(id);
     }
 
     @GetMapping("/All/{userId}")
-    public List<Oders> getAllByUserId(@PathVariable("userid") int userid) {
+    public List<Orders> getAllByUserId(@PathVariable("userid") int userid) {
         return oService.getAllOderByUserId(userid);
     }
     
 
     @PostMapping()
-    public String addOder(@RequestBody Oders o) {
+    public String addOder(@RequestBody Orders o) {
         return oService.addOder(o);
     }
 
     @PutMapping()
-    public String updateOder(@RequestBody Oders o) {
+    public String updateOder(@RequestBody Orders o) {
         return oService.updateOder(o);
     }
 }

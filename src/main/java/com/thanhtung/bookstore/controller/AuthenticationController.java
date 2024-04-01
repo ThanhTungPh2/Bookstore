@@ -1,5 +1,7 @@
 package com.thanhtung.bookstore.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 import com.thanhtung.bookstore.auth.*;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -32,8 +36,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(service.authenticate(request));
+    public void authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+        AuthenticationResponse temp = service.authenticate(request);
+        ResponseCookie cookie = ResponseCookie.from("accessToken", temp.getToken())
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(18000)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 
 }

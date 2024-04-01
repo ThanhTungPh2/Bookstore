@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -31,15 +32,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
        @NonNull FilterChain filterChain
         ) throws ServletException, IOException 
     {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
+        String jwt = null;
         final String userEmail;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+        if(request.getCookies() != null){
+            for(Cookie cookie: request.getCookies()){
+                if(cookie.getName().equals("accessToken")){
+                    jwt = cookie.getValue();
+                }
+            }
+        }
+
+        if(jwt == null){
             filterChain.doFilter(request, response);
             return;
         }
-        
-        jwt = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwt);// trích xuất Email from jwt
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
