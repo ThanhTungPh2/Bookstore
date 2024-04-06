@@ -21,7 +21,7 @@ $(document).ready(function() {
             password: password,
             role: 'USER'
         };
-        console.log(JSON.stringify(formData))
+
         // Gửi request Ajax
         $.ajax({
             type: 'POST', // Phương thức gửi request

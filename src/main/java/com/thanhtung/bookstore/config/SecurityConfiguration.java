@@ -8,15 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import lombok.RequiredArgsConstructor;
 
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
-
-import static com.thanhtung.bookstore.model.Role.ADMIN;
-import static com.thanhtung.bookstore.model.Role.USER;;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +25,7 @@ public class SecurityConfiguration {
     private final String[] WHITE_LIST_URL_GET = {
         "/products/**",
         "/category/**",
-        "/orders/**"
+        "/api/v1/auth/**"
     };
 
     private final String[] WHITE_LIST_URL_POST = {
@@ -39,6 +38,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .authorizeHttpRequests(req ->
             req.requestMatchers(GET, WHITE_LIST_URL_GET).permitAll()
             .requestMatchers(POST, WHITE_LIST_URL_POST).permitAll()
@@ -49,5 +49,21 @@ public class SecurityConfiguration {
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:5500");
+        corsConfiguration.addAllowedMethod("POST"); 
+        corsConfiguration.addAllowedMethod("GET"); 
+        corsConfiguration.addAllowedMethod("PUT"); 
+        corsConfiguration.addAllowedHeader("*"); // Chấp nhận tất cả các header
+        corsConfiguration.setAllowCredentials(true); // Cho phép gửi cookie trong yêu cầu CORS
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration); // Áp dụng cấu hình cho tất cả các URL
+
+        return source;
     }
 }

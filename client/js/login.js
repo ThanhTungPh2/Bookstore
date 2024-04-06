@@ -21,18 +21,13 @@ $(document).ready(function() {
             data: JSON.stringify(formData), // Dữ liệu gửi đi
             dataType: 'json',
             contentType:"application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
             success: function(response) {
-                // Xử lý phản hồi từ server khi request thành công
-                console.log(response);
 
-                // Kiểm tra xem phản hồi có chứa token không
-                if (response.token) {
-                    // Lưu token vào biến hoặc localStorage để sử dụng sau này
-                    var token = response.token;
-                    console.log("Token received:", token);
-                } else {
-                    console.error("No token received from server.");
-                }
+                // Lưu trữ dữ liệu trong session
+                
 
                 //Hiển thị message
                 $('.message span').html('Đăng nhập thành công!')

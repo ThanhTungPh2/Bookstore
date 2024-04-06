@@ -4,6 +4,26 @@ async function insertHTML(id, filePath) {
     document.getElementById(id).innerHTML = htmlContent;
 }
 
-// Call the function for header and footer
-insertHTML('header', '../html/header.html');
-insertHTML('footer', '../html/footer.html');
+async function loadHTML() {
+    // Chờ đợi cho header và footer được chèn vào DOM
+    await insertHTML('header', '../html/header.html');
+    await insertHTML('footer', '../html/footer.html');
+
+   //Check login
+   $.ajax({
+    type: 'GET', // Phương thức gửi request
+    url: 'http://localhost:8080/api/v1/auth/refreshLogin', // Địa chỉ URL của endpoint server
+    xhrFields: {
+        withCredentials: true // Thêm withCredentials vào XHR
+    },
+    success: function(response) {
+        console.log(response)
+    },
+    error: function(xhr, status, error) {
+        
+    }
+});
+}
+
+// Gọi hàm loadHTML()
+loadHTML();
