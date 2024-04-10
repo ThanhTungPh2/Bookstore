@@ -25,13 +25,14 @@ $(document).ready(function() {
                 withCredentials: true // Thêm withCredentials vào XHR
             },
             success: function(response) {
-
-                // Lưu trữ dữ liệu trong session
-                
-
                 //Hiển thị message
                 $('.message span').html('Đăng nhập thành công!')
                 $('.message').show()
+
+                setTimeout(function() {
+                    // Redirect to the homepage
+                    window.location.href = 'index.html'; // Replace 'homepage.html' with the URL of your homepage
+                }, 2000);
             },
             error: function(xhr, status, error) {
                 //Hiển thị message

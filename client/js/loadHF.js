@@ -9,6 +9,36 @@ async function loadHTML() {
     await insertHTML('header', '../html/header.html');
     await insertHTML('footer', '../html/footer.html');
 
+    $('.register').hide();
+    $('.login').hide();
+    $('#cart').hide();
+    $('#user-btn').hide();
+
+    
+    let userBox = document.querySelector('.header .header-2 .user-box');
+
+    document.querySelector('#user-btn').onclick = () =>{
+    userBox.classList.toggle('active');
+    navbar.classList.remove('active');
+    }
+
+    let navbar = document.querySelector('.header .header-2 .navbar');
+
+    document.querySelector('#menu-btn').onclick = () =>{
+    navbar.classList.toggle('active');
+    userBox.classList.remove('active');
+    }
+
+    window.onscroll = () =>{
+    userBox.classList.remove('active');
+    navbar.classList.remove('active');
+
+    if(window.scrollY > 60){
+        document.querySelector('.header .header-2').classList.add('active');
+    }else{
+        document.querySelector('.header .header-2').classList.remove('active');
+    }
+    }
    //Check login
    $.ajax({
     type: 'GET', // Phương thức gửi request
@@ -17,11 +47,17 @@ async function loadHTML() {
         withCredentials: true // Thêm withCredentials vào XHR
     },
     success: function(response) {
-        console.log(response)
+        if (response.email != "" && response.name != "") {
+            $('#cart').show();
+            $('#name-user').html(response.name);
+            $('#email-user').html(response.email);
+            $('#user-btn').show();
+        }
+        else {
+            $('.register').show();
+            $('.login').show();
+        }
     },
-    error: function(xhr, status, error) {
-        
-    }
 });
 }
 
