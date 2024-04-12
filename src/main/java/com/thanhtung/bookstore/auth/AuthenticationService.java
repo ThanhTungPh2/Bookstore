@@ -6,12 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.thanhtung.bookstore.repository.usersRepository;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 
 import com.thanhtung.bookstore.config.JwtService;
 import com.thanhtung.bookstore.model.Users;
@@ -51,24 +47,5 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
-    }
-
-    public AuthenticationRefreshLogin refreshLogin(HttpServletRequest request) {
-        String jwt = null;
-        if(request.getCookies() != null){
-            for(Cookie cookie: request.getCookies()){
-                if(cookie.getName().equals("accessToken")){
-                    jwt = cookie.getValue();
-                }
-            }
-        }
-        
-        if(jwt == null){
-            SecurityContextHolder.clearContext();
-            return AuthenticationRefreshLogin.builder().email("").name("").build();
-        }
-        String userEmail = jwtService.extractUsername(jwt);// trích xuất Email from jwt
-        var user = repository.findByEmail(userEmail).orElseThrow();
-        return AuthenticationRefreshLogin.builder().email(userEmail).name(user.getName()).build();
     }
 }
