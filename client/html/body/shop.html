@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cửa hàng</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+   <section class="products">
+      <h2 class="title">Tất cả sách</h2>
+      <select class="sort-box" onchange="window.location = this.options[this.selectedIndex].value">
+         <option>Sắp xếp</option>
+         <option value="?field=id& sort=DESC">Sách mới nhất</option>
+         <option value="?field=id& sort=ASC">Sách cũ nhất</option>
+         <option value="?field=category, name& sort=ASC">Tăng dần theo thể loại</option>
+         <option value="?field=category, name& sort=DESC">Giảm dần theo thể loại</option>
+         <option value="?field=newprice& sort=ASC">Giá tăng dần</option>
+         <option value="?field=newprice& sort=DESC">Giá giảm dần</option>
+      </select>
+
+      <div style="clear:both"></div>
+
+      <div class="box-container"></div>
+   </section>
+
+   <div id="footer"></div>
+
+   <script src="../js/loadHF.js"></script>
+
+</body>
+
+</html>

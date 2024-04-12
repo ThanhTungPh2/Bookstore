@@ -698,9 +698,6 @@ padding-bottom: 25px
 .about .flex {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .about .flex .image {
@@ -714,7 +711,6 @@ padding-bottom: 25px
 }
 
 .about .flex .content {
-  flex: 3.3 1 70rem;
   padding: 2rem;
   border-radius: 10px;
   background-color: #efefef;
@@ -745,7 +741,6 @@ padding-bottom: 25px
   font-size: 2rem;
   color: var(--light-color);
   text-align: justify;
-  padding-right: 23rem;
 }
 
 .home-contact {

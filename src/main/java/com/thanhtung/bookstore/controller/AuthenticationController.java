@@ -39,19 +39,24 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         AuthenticationResponse temp = service.authenticate(request);
-        ResponseCookie cookie = ResponseCookie.from("accessToken", temp.getToken())
+        ResponseCookie accessCookie = ResponseCookie.from("accessToken", temp.getToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("none")
+                .path("/")
+                .maxAge(18000)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
+
+        ResponseCookie checkLogCookie = ResponseCookie.from("logged", "logged")
                 .httpOnly(false)
                 .secure(true)
                 .sameSite("none")
                 .path("/")
                 .maxAge(18000)
                 .build();
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        return ResponseEntity.ok(new AuthenticationResponse().builder().message("Done").build());
-    }
+        response.addHeader(HttpHeaders.SET_COOKIE, checkLogCookie.toString());
 
-    @GetMapping("/refreshLogin")
-    public ResponseEntity<AuthenticationRefreshLogin> check(HttpServletRequest request) {
-        return ResponseEntity.ok(service.refreshLogin(request));
+        return ResponseEntity.ok(new AuthenticationResponse().builder().message("Done").build());
     }
 }
