@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thanhtung.bookstore.service.categoryService;
@@ -21,9 +22,14 @@ public class categoryController {
         this.cService = cService;
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<Categories> getAllCategory() {
         return cService.getALLCategories();
+    }
+
+    @GetMapping()
+    public Categories getCategories(@RequestParam("id") int id) {
+        return cService.getCategory(id);
     }
 
     @PostMapping()

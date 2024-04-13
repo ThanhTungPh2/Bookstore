@@ -29,7 +29,7 @@ public class ordersController {
     }
 
     @GetMapping("/All/{userId}")
-    public List<Orders> getAllByUserId(@PathVariable("userid") int userid) {
+    public List<Orders> getAllByUserId(@PathVariable("userId") int userid) {
         return oService.getAllOderByUserId(userid);
     }
     

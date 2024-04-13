@@ -12,7 +12,7 @@ $.get('http://localhost:8080/products/all', function(data) {
 
 //Load sách theo các thể loại
 const categoryList = document.getElementById("category_list")
-$.get("http://localhost:8080/category", function(data) {
+$.get("http://localhost:8080/category/all", function(data) {
    data.forEach(element => {  
       $.get('http://localhost:8080/products/byCategory?category_id='+element['id'], function(data2) {
          categoryList.appendChild(new Category(element,data2).item())      

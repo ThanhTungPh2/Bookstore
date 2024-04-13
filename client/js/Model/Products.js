@@ -16,16 +16,20 @@ export class Product {
   item() {
     const productForm = document.createElement('form');
     productForm.setAttribute('action', '');
-    productForm.setAttribute('method', 'post');
+    productForm.setAttribute('method', '');
     productForm.classList.add('box');
 
     // Ảnh
     const productLink = document.createElement('a');
-    productLink.setAttribute('href', ``);
     const productImage = document.createElement('img');
     productImage.classList.add('image');
     productImage.setAttribute('src', `../uploaded_img/`+ this.image);
     productImage.setAttribute('alt', '');
+    productImage.setAttribute("value", this.id);
+    productImage.addEventListener("click", function(data) {
+      sessionStorage.setItem("product_details_id",this.getAttribute("value"))
+      window.location.href = "../html/product_details.html"
+    })
 
     //Tên
     const productLink_2 = document.createElement('a');
@@ -61,6 +65,8 @@ export class Product {
     addToCartButton.setAttribute('type', 'submit');
     addToCartButton.setAttribute('value', 'Thêm vào giỏ hàng');
     addToCartButton.setAttribute('name', 'add_to_cart');
+    addToCartButton.setAttribute("product_id", this.id)
+    addToCartButton.setAttribute("product_qty", this.quantity)
     addToCartButton.classList.add('btn');
 
     // Thêm các phần tử con vào form
@@ -77,4 +83,6 @@ export class Product {
     // Thêm form vào container
     return productForm;
   }
+
+  
 }
