@@ -41,7 +41,7 @@ public class ordersServiceImpl implements ordersService {
 
     @Override
     public String updateOder(Orders o) {
-        oRepository.save(o);
+        oRepository.saveAndFlush(o);
         return "Update hoá đơn thành công";
     }
 

@@ -12,7 +12,7 @@ function add_to_carts(e) {
                 return item.status == 'Chờ xác nhận';
             })
             if (orders){
-                //thêm vào
+                
             }
             else {
                 //thêm mới

@@ -41,7 +41,7 @@ public class categoryServiceImpl implements categoryService {
 
     @Override
     public String updateCategory(Categories p) {
-        cRepository.save(p);
+        cRepository.saveAndFlush(p);
         return "Update category thành công";
     }
     

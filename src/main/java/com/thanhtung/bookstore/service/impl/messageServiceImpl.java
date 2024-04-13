@@ -36,7 +36,7 @@ public class messageServiceImpl implements messageService {
 
     @Override
     public String updateMessage(Message m) {
-        mRepository.save(m);
+        mRepository.saveAndFlush(m);
         return "Update message thành công";
     }
 

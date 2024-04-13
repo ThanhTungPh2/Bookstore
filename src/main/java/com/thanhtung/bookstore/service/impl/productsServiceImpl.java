@@ -43,7 +43,7 @@ public class productsServiceImpl implements productsService{
 
     @Override
     public String updateProducts(Products p) {
-        pRepository.save(p);
+        pRepository.saveAndFlush(p);
         return "Cập nhật sản phẩm thành công";
     }
 
