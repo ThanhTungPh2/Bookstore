@@ -25,5 +25,14 @@ public class LogoutService implements LogoutHandler {
                 .maxAge(0)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
+        ResponseCookie cookie_2 = ResponseCookie.from("logged", "404")
+                .httpOnly(false)
+                .secure(true)
+                .sameSite("none")
+                .path("/")
+                .maxAge(0)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie_2.toString());
     }
 }

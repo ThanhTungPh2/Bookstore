@@ -1,3 +1,5 @@
+import {Users} from "./Model/Users.js"
+
 let userBox = document.querySelector('.header .header-2 .user-box');
 
 document.querySelector('#user-btn').onclick = () =>{
@@ -26,27 +28,9 @@ $('.register').hide();
 $('.login').hide();
 $('#cart').hide();
 $('#user-btn').hide();
-// checkLogin
-function b64DecodeUnicode(str) {
-    // Going backwards: from bytestream, to percent-encoding, to original string.
-    return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-}
-function checkLoggedCookie() {
-    var cookies = document.cookie.split(';');
-
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.indexOf("logged=") === 0) {
-            return JSON.parse(b64DecodeUnicode(cookie.substring(7)));
-        }
-    }
-    return false;
-}
 
 // Sử dụng hàm checkLoggedCookie() để kiểm tra
-var infor = checkLoggedCookie()
+var infor = Users.checkLoggedCookie()
 if (infor) {
     $('#cart').show();
     $('#name-user').html(infor.name);
@@ -57,3 +41,16 @@ if (infor) {
     $('.register').show();
     $('.login').show();
 }
+
+$("#logout_btn").on("click", function() {
+    $.ajax({
+        type: 'GET', // Phương thức gửi request
+        url: 'http://localhost:8080/api/v1/auth/logout', // Địa chỉ URL của endpoint server
+        xhrFields: {
+            withCredentials: true // Thêm withCredentials vào XHR
+        },
+        success: function(response) {
+
+        },
+    });
+})

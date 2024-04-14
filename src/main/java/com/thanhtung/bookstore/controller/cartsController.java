@@ -7,14 +7,14 @@ import com.thanhtung.bookstore.service.cartService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.thanhtung.bookstore.model.Carts;
+import com.thanhtung.bookstore.parameter.spCart;
+
 import java.util.List;
 
 
@@ -30,20 +30,15 @@ public class cartsController {
         return cService.getAllCart(id);
     }
 
-    @PostMapping()
-    public String addCarts(@RequestBody Carts c) {
-        return cService.addToCart(c);
+    @PostMapping("/add")
+    public String addCarts(@RequestBody spCart spc
+    ) {
+        return cService.addToCart(spc);
     }
 
-    @PutMapping()
-    public String updateProducts(@RequestBody Carts c) {
-        return cService.updateToCart(c);
-    }
-
-    @DeleteMapping("{product_id}")
-    public String deleteProduct(@PathVariable("product_id") int id) {
-        return cService.deleteByProductId(id);
-    }
-
-    
+    @PostMapping("/delete")
+    public String updateProducts(@RequestBody spCart spc
+    ) {
+        return cService.deleteToCart(spc);
+    }    
 }

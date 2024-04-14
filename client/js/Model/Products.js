@@ -1,5 +1,7 @@
+import {Users} from "./Users.js"
+
 export class Product {
-  
+
   constructor(element){
     this.id = element.id;
     this.name = element.name;
@@ -62,12 +64,15 @@ export class Product {
     productPriceInput.setAttribute('value', this.newPrice);
 
     const addToCartButton = document.createElement('input');
-    addToCartButton.setAttribute('type', 'submit');
+    addToCartButton.setAttribute('type', 'button');
     addToCartButton.setAttribute('value', 'Thêm vào giỏ hàng');
     addToCartButton.setAttribute('name', 'add_to_cart');
     addToCartButton.setAttribute("product_id", this.id)
     addToCartButton.setAttribute("product_qty", this.quantity)
     addToCartButton.classList.add('btn');
+    addToCartButton.addEventListener("click", function() {
+      this.add_to_carts(this.id, Users.checkLoggedCookie());
+  }.bind(this));
 
     // Thêm các phần tử con vào form
     productForm.appendChild(productLink);
@@ -84,5 +89,37 @@ export class Product {
     return productForm;
   }
 
-  
+  add_to_carts(product_id, user_id) {
+    if (sessionStorage.getItem("logged")) {
+        window.location.href = "../html/index.html"
+    }
+
+    if ($(".qty").data("value") > $(this).data("product_qty")) {
+        //Thông báo
+    }
+    else {
+      let formData = {
+        userId : user_id.id,
+        productId : product_id,
+        quantity : 1
+      }
+      console.log(JSON.stringify(formData))
+      $.ajax({
+        type: 'POST', // Phương thức gửi request
+        url: 'http://localhost:8080/carts/add', // Địa chỉ URL của endpoint server
+        data: JSON.stringify(formData), // Dữ liệu gửi đi
+        dataType: 'json',
+        contentType:"application/json; charset=utf-8",
+        xhrFields: {
+            withCredentials: true // Thêm withCredentials vào XHR
+        },
+        success: function(response) {
+
+        },
+        error: function(xhr, status, error) {
+
+        }
+      });
+    }
+  } 
 }
