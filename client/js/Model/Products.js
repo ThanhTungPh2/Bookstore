@@ -114,7 +114,7 @@ export class Product {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-
+          console.log("Xoá thành công");
         },
         error: function(xhr, status, error) {
 

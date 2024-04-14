@@ -1,7 +1,6 @@
 package com.thanhtung.bookstore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
@@ -12,8 +11,9 @@ import java.util.List;
 
 public interface cartsRepository extends JpaRepository<Carts, Integer > {
 
-    @Query("SELECT c FROM Carts c WHERE c.orderId = :id")
-    List<Carts> findAllByOrderId(Integer id);
+    @Query(value = "SELECT c FROM Carts c INNER JOIN Orders o ON c.orderId = o.id WHERE o.userId = :id AND o.status = 'Chờ xác nhận'")
+    List<Carts> findAllByUserId(@Param("id") Integer id);
+
 
     @Procedure(name = "THEM_SACH")
     @Transactional

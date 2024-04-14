@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.thanhtung.bookstore.model.Carts;
 import com.thanhtung.bookstore.parameter.spCart;
-
-import java.util.List;
 
 
 @RestController
@@ -25,8 +22,8 @@ public class cartsController {
     
     private final cartService cService;
 
-    @GetMapping("{order_id}")
-    public List<Carts> getMethodName(@PathVariable("order_id") int id) {
+    @GetMapping("{user_id}")
+    public String getMethodName(@PathVariable("user_id") int id) {
         return cService.getAllCart(id);
     }
 

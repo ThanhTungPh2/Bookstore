@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class spCart {
-    private Integer userId;
-    private Integer productId;
-    private Integer quantity;
+    private int userId;
+    private int productId;
+    private int quantity;
 }
