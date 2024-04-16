@@ -40,12 +40,16 @@ export class Carts {
             const input = document.createElement("input");
             input.type = "number";
             input.value = k.quantity;
+            input.setAttribute("min", 1);
 
             const submit = document.createElement("input");
             submit.type = "button"
             submit.setAttribute("name","update_cart")
             submit.setAttribute("value", "Cập nhật");
             submit.classList.add("option-btn");
+            submit.addEventListener("click", function() {
+              Carts.updateCart(this.value, k.id, Users.checkLoggedCookie().id);
+            }.bind(input))
 
 
             box.appendChild(a);
@@ -93,15 +97,66 @@ export class Carts {
            },
            success: function(response) {
               let data = JSON.parse(response);
-              console.log(response)
               cartsList.appendChild(new Carts(data).item())
            },
            error: function(xhr, status, error) {
               
            }
        });
+    }
+    static updateCart(value, product_id, user_id) {
+      let formData = {
+        userId : user_id,
+        productId : product_id,
+        quantity : value
+      }
+      console.log(JSON.stringify(formData))
+      $.ajax({
+        type: 'PUT', // Phương thức gửi request
+        url: 'http://localhost:8080/carts/update', // Địa chỉ URL của endpoint server
+        data: JSON.stringify(formData), // Dữ liệu gửi đi
+        dataType: 'json',
+        contentType:"application/json; charset=utf-8",
+        xhrFields: {
+            withCredentials: true // Thêm withCredentials vào XHR
+        },
+        success: function(response) {
+
+        },
+        error: function(xhr, status, error) {
+
+        }
+      });
+    }
+    static deleteAllCart(id) {
+      let formData = {
+        userId : id,
+      }
+      console.log(JSON.stringify(formData))
+      $.ajax({
+        type: 'DELETE', // Phương thức gửi request
+        url: 'http://localhost:8080/carts', // Địa chỉ URL của endpoint server
+        data: JSON.stringify(formData), // Dữ liệu gửi đi
+        dataType: 'json',
+        contentType:"application/json; charset=utf-8",
+        xhrFields: {
+            withCredentials: true // Thêm withCredentials vào XHR
+        },
+        success: function(response) {
+
+        },
+        error: function(xhr, status, error) {
+
+        }
+      });
+    }
   }
-}
 
   Carts.showCarts();
+  $(".delete-btn").on("click", function (e) {
+    e.preventDefault();
+    console.log("memm")
+    Carts.deleteAllCart(Users.checkLoggedCookie().id);
+    document.getElementById("listcart").innerHTML = "";
+  })
   

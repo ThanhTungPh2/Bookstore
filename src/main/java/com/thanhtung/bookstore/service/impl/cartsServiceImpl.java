@@ -38,6 +38,18 @@ public class cartsServiceImpl implements cartService {
     }
 
     @Override
+    public String deleteAllCart(spCart spCart) {
+        cRepository.XOA_TAT_CA(spCart.getUserId());
+        return null;
+    }
+
+    @Override
+    public String updateToCart(spCart spCart) {
+        cRepository.UPDATE_SACH(spCart.getUserId(), spCart.getProductId(), spCart.getQuantity());
+        return null;
+    }
+
+    @Override
     public String getAllCart(int id) {
         List<Carts> lc = cRepository.findAllByUserId(id);
         

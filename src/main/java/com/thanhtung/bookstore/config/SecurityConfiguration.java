@@ -65,7 +65,8 @@ public class SecurityConfiguration {
         corsConfiguration.addAllowedOrigin("http://localhost:5500");
         corsConfiguration.addAllowedMethod("POST"); 
         corsConfiguration.addAllowedMethod("GET"); 
-        corsConfiguration.addAllowedMethod("PUT"); 
+        corsConfiguration.addAllowedMethod("PUT");
+        corsConfiguration.addAllowedMethod("DELETE"); 
         corsConfiguration.addAllowedHeader("*"); // Chấp nhận tất cả các header
         corsConfiguration.setAllowCredentials(true); // Cho phép gửi cookie trong yêu cầu CORS
 

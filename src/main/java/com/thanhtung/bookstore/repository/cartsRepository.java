@@ -25,4 +25,15 @@ public interface cartsRepository extends JpaRepository<Carts, Integer > {
     @Transactional
     void XOA_SACH(@Param("user_id_param") Integer user_id
         ,@Param("product_id_param") Integer product_id);
+
+    @Procedure(name = "UPDATE_SACH")
+    @Transactional
+    void UPDATE_SACH(@Param("user_id_param") Integer user_id
+    ,@Param("product_id_param") Integer product_id
+    ,@Param("quantity_new") Integer quantity);
+
+    @Procedure(name = "XOA_TAT_CA")
+    @Transactional
+    void XOA_TAT_CA(@Param("user_id_param") Integer user_id);
+
 }

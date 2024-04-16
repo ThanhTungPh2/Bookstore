@@ -355,6 +355,7 @@ section {
 
 .header .header-2 .flex .user-box.active {
   display: inline-block;
+  z-index: 100;
 }
 
 .header .header-2 .flex .user-box p {
@@ -440,7 +441,7 @@ section {
   border: 1px solid black;
   border-radius: 4px;
   margin: 0 32px 20px 0px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
 
 section {
