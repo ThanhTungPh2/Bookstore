@@ -43,6 +43,11 @@ public class productsController {
         return pService.getProductsByCategoryId(id);
     }
 
+    @GetMapping("/byName")
+    public List<Products> getProductsByCategoryId(@RequestParam("name") String name){
+        return pService.getProductsByName(name);
+    }
+
     @PostMapping()
     public String addProducts(@RequestBody Products p) {
         return pService.addProducts(p);

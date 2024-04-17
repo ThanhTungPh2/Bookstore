@@ -4,18 +4,24 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thanhtung.bookstore.model.Orders;
 import com.thanhtung.bookstore.repository.ordersRepository;
+import com.thanhtung.bookstore.service.cartService;
 import com.thanhtung.bookstore.service.ordersService;
 
+import lombok.RequiredArgsConstructor;
+
+import com.thanhtung.bookstore.parameter.jsonProcess;
+
 @Service
+@RequiredArgsConstructor
 public class ordersServiceImpl implements ordersService {
     
-    ordersRepository oRepository;
-
-    public ordersServiceImpl(ordersRepository oRepository) {
-        this.oRepository = oRepository;
-    }
+    private final ordersRepository oRepository;
+    private final cartService cService;
 
     @Override
     public String addOder(Orders o) {
@@ -30,8 +36,21 @@ public class ordersServiceImpl implements ordersService {
     }
 
     @Override
-    public List<Orders> getAllOderByUserId(int userId) {
-        return oRepository.findAllByUserId(userId);
+    public String getAllOderByUserId(int userId) {
+        List<Orders> lo = oRepository.findAllByUserId(userId);
+
+        ArrayNode order = jsonProcess.objectMapper.createArrayNode();
+        
+        for (Orders item : lo) {
+            ObjectNode result = jsonProcess.objectMapper.createObjectNode();
+            ArrayNode carts = jsonProcess.objectMapper.createArrayNode();
+            result.set("carts", carts);
+
+            result = (ObjectNode)jsonProcess.objectToJsonNode(item);
+
+            order.add(result);
+        }
+        return jsonProcess.objectToJson(order);
     }
 
     @Override

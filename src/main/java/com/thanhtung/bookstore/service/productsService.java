@@ -10,4 +10,5 @@ public interface productsService {
     public Products getProducts(int id);
     public List<Products> getALLProducts();
     public List<Products> getProductsByCategoryId(int id);
+    public List<Products> getProductsByName(String name);
 }
