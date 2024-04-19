@@ -78,9 +78,15 @@ export class Carts {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-
-          },
+        },
         error: function(xhr, status, error) {
+          //Hiển thị message
+          $('.message span').html('Đã xoá sản phẩm vào giỏ hàng!')
+          $('.message').show()
+  
+          setTimeout(function() {
+            $('.message').hide()
+          }, 3000);
 
         }
     });
@@ -100,7 +106,7 @@ export class Carts {
               cartsList.appendChild(new Carts(data).item())
            },
            error: function(xhr, status, error) {
-              
+              cartsList.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p><br>"
            }
        });
     }
@@ -110,7 +116,6 @@ export class Carts {
         productId : product_id,
         quantity : value
       }
-      console.log(JSON.stringify(formData))
       $.ajax({
         type: 'PUT', // Phương thức gửi request
         url: 'http://localhost:8080/carts/update', // Địa chỉ URL của endpoint server
@@ -121,9 +126,15 @@ export class Carts {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-
         },
         error: function(xhr, status, error) {
+          //Hiển thị message
+          $('.message span').html('Đã cập nhật sản phẩm trong giỏ hàng!')
+          $('.message').show()
+  
+          setTimeout(function() {
+            $('.message').hide()
+          }, 3000);
 
         }
       });
@@ -153,7 +164,7 @@ export class Carts {
   }
 
   Carts.showCarts();
-  $(".delete-btn").on("click", function (e) {
+  $(".flex .delete-btn").on("click", function (e) {
     e.preventDefault();
     console.log("memm")
     Carts.deleteAllCart(Users.checkLoggedCookie().id);

@@ -28,6 +28,7 @@ $('.register').hide();
 $('.login').hide();
 $('#cart').hide();
 $('#user-btn').hide();
+$('.message').hide()
 
 // Sử dụng hàm checkLoggedCookie() để kiểm tra
 var infor = Users.checkLoggedCookie()

@@ -29,7 +29,7 @@ public class ordersController {
 
     @GetMapping("/All/{userId}")
     public String getAllByUserId(@PathVariable("userId") int userid) {
-        return oService.getAllOderByUserId(userid);
+        return oService.getAllOderByUserId(userid, "Đã xác nhận");
     }
     
 

@@ -24,7 +24,7 @@ public class Orders {
     @Column(name = "user_id")
     private int userId;
     private String name;
-    private int number;
+    private String number;
     private String email;
     private String method;
     private String address;

@@ -95,7 +95,7 @@ export class Product {
     }
 
     if ($(".qty").data("value") > $(this).data("product_qty")) {
-        //Thông báo
+        //Hiển thị message
     }
     else {
       let formData = {
@@ -103,7 +103,6 @@ export class Product {
         productId : product_id,
         quantity : 1
       }
-      console.log(JSON.stringify(formData))
       $.ajax({
         type: 'POST', // Phương thức gửi request
         url: 'http://localhost:8080/carts/add', // Địa chỉ URL của endpoint server
@@ -114,10 +113,16 @@ export class Product {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-          console.log("Xoá thành công");
+         
         },
         error: function(xhr, status, error) {
-
+           //Hiển thị message
+           $('.message span').html('Đã thêm sản phẩm vào giỏ hàng!')
+           $('.message').show()
+ 
+           setTimeout(function() {
+             $('.message').hide()
+           }, 3000);
         }
       });
     }

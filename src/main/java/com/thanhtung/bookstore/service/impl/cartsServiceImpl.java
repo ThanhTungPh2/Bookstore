@@ -49,8 +49,8 @@ public class cartsServiceImpl implements cartService {
     }
 
     @Override
-    public String getAllCart(int id) {
-        List<Carts> lc = cRepository.findAllByUserId(id);
+    public String getAllCart(int id, String status) {
+        List<Carts> lc = cRepository.findAllByUserId(id, status);
         
         ObjectNode result = objectMapper.createObjectNode();
         result.put("orderId", lc.get(0).getOrderId());
@@ -64,7 +64,7 @@ public class cartsServiceImpl implements cartService {
             int productId = item.getProductId();
     
             // Gọi phương thức getProducts với productId đã lấy được
-            ObjectNode updatedProduct = (ObjectNode)jsonProcess.objectToJsonNode(pService.getProducts(productId));
+            ObjectNode updatedProduct = jsonProcess.objectToObjectNode(pService.getProducts(productId));
             updatedProduct.remove("quantity");
             updatedProduct.remove("newPrice");
             updatedProduct.remove("price");

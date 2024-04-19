@@ -1,6 +1,4 @@
 package com.thanhtung.bookstore.parameter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -24,58 +22,25 @@ public class jsonProcess {
         }
     }
 
-    public static JsonNode objectToJsonNode(Object object) {
+    public static ObjectNode objectToObjectNode(Object object) {
         try {
-            // Chuyển đối tượng thành JsonNode
-            return objectMapper.valueToTree(object);
+            // Tạo một ObjectNode mới
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            // Chuyển đối tượng thành ObjectNode và thêm vào ObjectNode mới tạo
+            objectMapper.convertValue(object, ObjectNode.class).fields()
+                    .forEachRemaining(entry -> objectNode.set(entry.getKey(), entry.getValue()));
+            return objectNode;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static boolean isValidJson(String jsonString) {
+    public static ObjectNode jsonToObjectNode(String json) {
         try {
-            objectMapper.readTree(jsonString);
-            return true;
-        } catch (JsonProcessingException e) {
-            return false;
-        }
-    }
-
-    public static JsonNode updateJsonProperty(JsonNode rootNode, String propertyName, JsonNode newValue) {
-        try {
-            // Bước 1: Thực hiện thay đổi vào thuộc tính mong muốn
-            ((ObjectNode) rootNode).set(propertyName, newValue);
-
-            // Bước 2: Trả về JsonNode đã được cập nhật
-            return rootNode;
+            // Chuyển đổi JSON thành ObjectNode
+            return (ObjectNode) objectMapper.readTree(json);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static JsonNode renameJsonKeys(JsonNode rootNode, String oldKeyName, String newKeyName) {
-        try {
-        // Duyệt qua từng phần tử trong mảng
-        for (JsonNode elementNode : rootNode) {
-                ObjectNode objectNode = (ObjectNode) elementNode;
-                // Kiểm tra xem khóa cũ có tồn tại trong phần tử không
-                if (objectNode.has(oldKeyName)) {
-                    // Lấy giá trị của khóa cũ
-                    JsonNode propertyNode = objectNode.get(oldKeyName);
-                    
-                    // Xóa khóa cũ
-                    objectNode.remove(oldKeyName);
-                    
-                    // Thêm khóa mới với giá trị của khóa cũ
-                    objectNode.set(newKeyName, propertyNode);
-                }
-            }
-            // Trả về JsonNode đã được cập nhật
-            return rootNode;
-        }catch (Exception e) {
             e.printStackTrace();
             return null;
         }

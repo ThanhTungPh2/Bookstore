@@ -31,7 +31,7 @@ export class Category {
         const link = document.createElement('a');
         link.classList.add('option-btn');
         link.innerHTML = 'Xem thêm...';
-        link.setAttribute('href',``);
+        link.setAttribute('href',`shop.html`);
         load_more.appendChild(link);
 
         corlor_box.appendChild(title);

@@ -26,7 +26,7 @@ public class cartsController {
 
     @GetMapping("{user_id}")
     public String getMethodName(@PathVariable("user_id") int id) {
-        return cService.getAllCart(id);
+        return cService.getAllCart(id, "Chờ xác nhận");
     }
 
     @PostMapping("/add")

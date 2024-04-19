@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thanhtung.bookstore.model.Orders;
@@ -36,17 +36,18 @@ public class ordersServiceImpl implements ordersService {
     }
 
     @Override
-    public String getAllOderByUserId(int userId) {
+    public String getAllOderByUserId(int userId, String status) {
         List<Orders> lo = oRepository.findAllByUserId(userId);
 
         ArrayNode order = jsonProcess.objectMapper.createArrayNode();
         
         for (Orders item : lo) {
-            ObjectNode result = jsonProcess.objectMapper.createObjectNode();
-            ArrayNode carts = jsonProcess.objectMapper.createArrayNode();
-            result.set("carts", carts);
-
-            result = (ObjectNode)jsonProcess.objectToJsonNode(item);
+            ObjectNode result = jsonProcess.objectToObjectNode(item);
+            
+            ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCart(userId, "Đã xác nhận"));
+            updatedProduct.remove("orderId");
+            updatedProduct.remove("userId");
+            result.set("carts", updatedProduct);
 
             order.add(result);
         }
@@ -60,7 +61,8 @@ public class ordersServiceImpl implements ordersService {
 
     @Override
     public String updateOder(Orders o) {
-        oRepository.saveAndFlush(o);
+        oRepository.UPDATE_ORDERS(o.getUserId(), o.getNumber(), o.getPlacedOn()
+            , o.getAddress(), o.getEmail(), o.getMethod(), o.getName(), o.getNote(), o.getStatus());
         return "Update hoá đơn thành công";
     }
 
