@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sách</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="stylesheet" href="../css/tung.css">
+   <script src="../../js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="flex">
+     
+           <a href="admin_page.html" class="logo">Admin</a>
+     
+           <nav class="navbar">
+            <a href="admin_page.html">Trang chủ</a>
+            <a href="admin_products.html">Sách</a>
+            <a href="admin_category.html">Thể loại</a>
+            <a href="admin_orders.html">Đơn hàng</a>
+            <a href="admin_users.html">Người dùng</a></a>
+            <a href="admin_contacts.html">Tin nhắn</a>
+           </nav>
+     
+           <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <div id="user-btn" class="fas fa-user"></div>
+           </div>
+     
+           <div class="account-box">
+              <p>Tên người dùng : <br><span id="name-user"></span></p>
+              <p>Email : <br><span id="email-user"></span></p>
+              <a href="" class="delete-btn" id="logout_btn">Đăng xuất</a>
+              <!-- <div><a href="login.php">Đăng nhập</a> | <a href="register.php">Đăng ký</a></div> -->
+           </div>
+     
+        </div>
+     
+     </header>
+
+   <section class="add-products">
+
+      <div class="image-section">
+         <div class="image-preview">
+            <label for="image-upload" class="image-label">Nhấp để tải ảnh lên</label>
+            <img id="preview-image" src="#" alt="" class="preview-image">
+         </div>
+      </div>
+
+      <div class="input-section">
+         <form action="../../upload_image.php" method="post" enctype="multipart/form-data" class="form-input">
+            <input type="text" name="name" class="box" placeholder="Tên sách" required>
+            <input type="text" name="author" class="box" placeholder="Tác giả" required>
+            <select name="category" class="box">
+               
+            </select>
+            <input type="number" min="0" name="price" class="box" placeholder="Giá sách" required>
+            <input type="number" min="0" name="discount" class="box" placeholder="% giảm giá" required>
+            <input type="number" min="1" name="quantity" class="box" placeholder="Số lượng" required>
+            <input type="text" name="describe" class="box" placeholder="Mô tả" required>
+            <input type="file" id="image-upload" accept="image/jpg, image/jpeg, image/png" class="box" required style="display:none" name="image">
+            <input type="button" value="Thêm" name="add_product" class="btn">
+         </form>
+      </div>
+   </section>
+
+   <section class="show-products">
+      <table id="table-product" border="1">
+         <tr>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Tác Giả</th>
+            <th>Thể loại</th>
+            <th>Giá</th>
+            <th>Khuyến mãi</th>
+            <th>Giá mới</th>
+            <th>Số lượng</th>
+            <th>Mô tả</th>
+            <th>Ảnh</th>
+            <th>Hành động</th>
+         </tr>
+         
+      </table>
+   </section>
+
+   <section class="edit-product-form">
+               
+   </section>
+
+
+   <script type="module" src="../js/header.js"></script>
+   <script src="../js/admin_products.js"></script>
+   <script>
+      const imageUpload = document.getElementById('image-upload');
+      const previewImage = document.getElementById('preview-image');
+      const imageLabel = document.querySelector('.image-label');
+
+      imageUpload.addEventListener('change', function(event) {
+         const file = event.target.files[0];
+         if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+               previewImage.src = e.target.result;
+               previewImage.classList.add('active');
+            };
+
+            reader.readAsDataURL(file);
+         }
+
+      });
+
+      imageLabel.addEventListener('click', function(event) {
+         event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+         imageUpload.click();
+      });
+   </script>
+   <script type="module">
+
+      $("input[name='add_product']").on("click", function() {
+
+         const name = $("input[name='name']").val();
+         const author = $("input[name='author']").val();
+         const category = $("select[name='category']").val();
+         const price = $("input[name='author']").val();
+         const discount = $("input[name='author']").val();
+         const quantity = $("input[name='author']").val();
+         const describe = $("input[name='author']").val();
+         const img = $("#image-upload").val();
+
+         console.log(img);
+
+         let formData_2 = {
+            name: name,
+            author: author,
+            price: price,
+            discount: discount,
+            categoryId: category,
+            quantity: quantity,
+            describes: describe,
+            image: img.split("\\").pop()
+         }
+
+         
+      //    $.ajax({
+      //       type: 'POST', // Phương thức gửi request
+      //       url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
+      //       data: JSON.stringify(formData), // Dữ liệu gửi đi
+      //       dataType: 'json',
+      //       contentType:"application/json; charset=utf-8",
+      //       xhrFields: {
+      //           withCredentials: true // Thêm withCredentials vào XHR
+      //       },
+      //       success: function(response) {
+
+      //       },
+      //       error: function(xhr, status, error) {
+
+      //       }
+      //   });
+
+      var formData = new FormData();
+         var fileInput = document.getElementById('image-upload'); // giả sử 'fileInput' là id của thẻ input type="file"
+
+         // Lấy file từ input và thêm vào FormData
+         formData.append('image', fileInput.files[0]);
+
+         $.ajax({
+            type: 'POST',
+            url: 'http://localhost:5500/client/upload_image.php',
+            data: formData,
+            processData: false, // Không xử lý dữ liệu
+            contentType: false, // Không đặt Content-Type header
+            xhrFields: {
+               withCredentials: true
+            },
+            success: function(response) {
+               console.log(response)
+            },
+            error: function(xhr, status, error) {
+               console.log(status)
+            }
+         });
+      })
+   </script>
+
+</body>
+
+</html>

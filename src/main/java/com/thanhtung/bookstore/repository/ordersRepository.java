@@ -16,6 +16,9 @@ public interface ordersRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o WHERE o.status = 'Đã xác nhận' AND o.userId = :userId")
     public List<Orders> findAllByUserId(int userId);
 
+    @Query("SELECT o FROM Orders o WHERE o.status = 'Đã xác nhận'")
+    public List<Orders> findAllOrders();
+
     @Procedure(name = "UPDATE_ORDERS")
     @Transactional
     public void UPDATE_ORDERS(

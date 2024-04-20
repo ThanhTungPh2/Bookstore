@@ -1,11 +1,14 @@
 package com.thanhtung.bookstore.service.impl;
 import java.security.Principal;
+import java.util.List;
+
 import com.thanhtung.bookstore.model.ChangePasswordRequest;
 import com.thanhtung.bookstore.service.userService;
 
 import lombok.RequiredArgsConstructor;
 
 import com.thanhtung.bookstore.model.Users;
+import com.thanhtung.bookstore.model.Role;
 import com.thanhtung.bookstore.repository.usersRepository;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +22,11 @@ public class userServiceImpl implements userService {
     private final PasswordEncoder passwordEncoder;
     private final usersRepository uRepository;
     
+    @Override
+    public List<Users> getUsers(Role role) {
+        return uRepository.findAllUsers(role);
+    }
+
     @Override
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 

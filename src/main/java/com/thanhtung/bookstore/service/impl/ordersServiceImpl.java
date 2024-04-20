@@ -66,5 +66,10 @@ public class ordersServiceImpl implements ordersService {
         return "Update hoá đơn thành công";
     }
 
+    @Override
+    public List<Orders> getAllOrders() {
+        return oRepository.findAllOrders();
+    }
+
     
 }

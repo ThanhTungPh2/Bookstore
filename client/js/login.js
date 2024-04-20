@@ -1,3 +1,5 @@
+import { Users } from "../js/Model/Users.js" 
+
 $(document).ready(function() {
     $('.message').hide()
     $('#loginForm').submit(function(event) {
@@ -31,7 +33,11 @@ $(document).ready(function() {
 
                 setTimeout(function() {
                     // Redirect to the homepage
-                    window.location.href = 'index.html'; // Replace 'homepage.html' with the URL of your homepage
+                    console.log(Users.checkLoggedCookie())
+                    if (Users.checkLoggedCookie().role == "USER")
+                        window.location.href = 'index.html'; // Replace 'homepage.html' with the URL of your homepage
+                    else if (Users.checkLoggedCookie().role == "ADMIN")
+                        window.location.href = '../admin/html/admin_page.html'
                 }, 2000);
             },
             error: function(xhr, status, error) {

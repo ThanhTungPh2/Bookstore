@@ -164,7 +164,7 @@ export class Carts {
   }
 
   Carts.showCarts();
-  $(".flex .delete-btn").on("click", function (e) {
+  $("#delete-all").on("click", function (e) {
     e.preventDefault();
     console.log("memm")
     Carts.deleteAllCart(Users.checkLoggedCookie().id);

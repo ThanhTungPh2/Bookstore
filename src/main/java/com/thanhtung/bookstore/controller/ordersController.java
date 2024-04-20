@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thanhtung.bookstore.model.Orders;
 import com.thanhtung.bookstore.service.ordersService;
+import java.util.List;
 
 
 @RestController
@@ -31,8 +32,12 @@ public class ordersController {
     public String getAllByUserId(@PathVariable("userId") int userid) {
         return oService.getAllOderByUserId(userid, "Đã xác nhận");
     }
-    
 
+    @GetMapping("/All")
+    public List<Orders> getAllOrders() {
+        return oService.getAllOrders();
+    }
+    
     @PostMapping()
     public String addOder(@RequestBody Orders o) {
         return oService.addOder(o);

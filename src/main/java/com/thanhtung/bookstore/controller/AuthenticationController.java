@@ -52,7 +52,7 @@ public class AuthenticationController {
         response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
 
         var user = uRepository.findByEmail(request.getEmail()).orElseThrow();
-        String json = "{\"email\":\""+user.getEmail()+"\",\"name\":\""+user.getName()+"\",\"id\":\""+user.getId()+"\"}";
+        String json = "{\"email\":\""+user.getEmail()+"\",\"name\":\""+user.getName()+"\",\"id\":\""+user.getId()+"\",\"role\":\""+user.getRole()+"\"}";
         ResponseCookie checkLogCookie = ResponseCookie.from("logged", Base64.getEncoder().encodeToString(json.getBytes(StandardCharsets.UTF_8)))
                 .httpOnly(false)
                 .secure(true)

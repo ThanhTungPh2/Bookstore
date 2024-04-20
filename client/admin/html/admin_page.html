@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Trang quản trị</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="../../js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="flex">
+     
+           <a href="admin_page.html" class="logo">Admin</a>
+     
+           <nav class="navbar">
+            <a href="admin_page.html">Trang chủ</a>
+            <a href="admin_products.html">Sách</a>
+            <a href="admin_category.html">Thể loại</a>
+            <a href="admin_orders.html">Đơn hàng</a>
+            <a href="admin_users.html">Người dùng</a></a>
+            <a href="admin_contacts.html">Tin nhắn</a>
+           </nav>
+     
+           <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <div id="user-btn" class="fas fa-user"></div>
+           </div>
+     
+           <div class="account-box">
+              <p>Tên người dùng : <br><span id="name-user"></span></p>
+              <p>Email : <br><span id="email-user"></span></p>
+              <a href="" class="delete-btn" id="logout_btn">Đăng xuất</a>
+              <!-- <div><a href="login.php">Đăng nhập</a> | <a href="register.php">Đăng ký</a></div> -->
+           </div>
+     
+        </div>
+     
+     </header>
+
+   <section class="dashboard">
+
+      <h1 class="title">Bảng thông tin</h1>
+
+      <div class="box-container">
+
+         <div class="box">
+            <h3 id="orders"></h3>
+            <p>Đơn hàng</p>
+         </div>
+
+         <div class="box">
+            <h3 id="product"></h3>
+            <p>Sách</p>
+         </div>
+
+         <div class="box">
+            <h3 id="users"></h3>
+            <p>Người dùng thường</p>
+         </div>
+
+         <div class="box">
+            <h3 id="admin"></h3>
+            <p>Admin</p>
+         </div>
+
+         <!-- <div class="box">
+            <h3></h3>
+            <p>Tổng số tiền bán được (VNĐ)</p>
+         </div> -->
+
+      </div>
+
+   </section>
+
+   <script type="module" src="../js/header.js"></script>
+   <script type="module" src="../js/admin_page.js"></script>
+</body>
+
+</html>
