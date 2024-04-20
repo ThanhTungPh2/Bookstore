@@ -22,11 +22,6 @@ window.onscroll = () =>{
    accountBox.classList.remove('active');
 }
 
-// document.querySelector('#close-update').onclick = () =>{
-//    document.querySelector('.edit-product-form').style.display = 'none';
-//    window.location.href = 'admin_products.php';
-// }
-
 $("#logout_btn").on("click", function() {
    $.ajax({
        type: 'GET', // Phương thức gửi request

@@ -21,66 +21,74 @@
     });
 
     //Load thể loại
-    $.ajax({
-        type: 'GET', // Phương thức gửi request
-        url: 'http://localhost:8080/products/all', // Địa chỉ URL của endpoint server
-        xhrFields: {
-            withCredentials: true // Thêm withCredentials vào XHR
-        },
-        success: function(response) {
-            response.forEach(element => {
+    function loadProduct() {
+        $.ajax({
+            type: 'GET', // Phương thức gửi request
+            url: 'http://localhost:8080/products/all', // Địa chỉ URL của endpoint server
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
+            success: function(response) {
+                $("#table-product").empty()
+                response.forEach(element => {
 
-                const tr = document.createElement("tr");
-                const id = document.createElement("td");
-                id.innerHTML = element.id;
-                const name = document.createElement("td");
-                name.innerHTML = element.name;
-                const author = document.createElement("td")
-                author.innerHTML = element.author;
-                const category_name = document.createElement("td")
-                category_name.innerHTML = category.find(item => item.id == element.categoryId).name
-                const price = document.createElement("td")
-                price.innerHTML = element.price
-                const discount = document.createElement("td")
-                discount.innerHTML = element.discount
-                const newprice = document.createElement("td")
-                newprice.innerHTML = element.newPrice;
-                const quantity = document.createElement("td")
-                quantity.innerHTML =  element.quantity;
-                const describes = document.createElement("td")
-                describes.innerHTML = element.describes;
-                const img = document.createElement("td")
-                img.innerHTML = "<td><img src=\"../../uploaded_img/"+element.image+"\" alt=\"\"></td>"
-                const button = document.createElement("td");
-                const button_update = document.createElement("a");
-                button_update.innerHTML = "<button class=\"button edit\">Sửa</button>"
-                button_update.addEventListener("click", function() {
-                    updateProduct(element.id, category)
+                    const tr = document.createElement("tr");
+                    const id = document.createElement("td");
+                    id.innerHTML = element.id;
+                    const name = document.createElement("td");
+                    name.innerHTML = element.name;
+                    const author = document.createElement("td")
+                    author.innerHTML = element.author;
+                    const category_name = document.createElement("td")
+                    category_name.innerHTML = category.find(item => item.id == element.categoryId).name
+                    const price = document.createElement("td")
+                    price.innerHTML = element.price
+                    const discount = document.createElement("td")
+                    discount.innerHTML = element.discount
+                    const newprice = document.createElement("td")
+                    newprice.innerHTML = element.newPrice;
+                    const quantity = document.createElement("td")
+                    quantity.innerHTML =  element.quantity;
+                    const describes = document.createElement("td")
+                    describes.innerHTML = element.describes;
+                    const img = document.createElement("td")
+                    img.innerHTML = "<td><img src=\"../../uploaded_img/"+element.image+"\" alt=\"\"></td>"
+                    const button = document.createElement("td");
+                    const button_update = document.createElement("a");
+                    button_update.innerHTML = "<button class=\"button edit\">Sửa</button>"
+                    button_update.addEventListener("click", function() {
+                        updateProduct(element.id, category)
+                    })
+                    const button_delete = document.createElement("a");
+                    button_delete.innerHTML = "<button class=\"button delete\">Xóa</button>"
+                    button_delete.addEventListener("click", function() {
+                        deleteProduct(element.id)
+                    })
+                    button.appendChild(button_update)
+                    button.appendChild(button_delete)
+
+
+                    tr.appendChild(id)
+                    tr.appendChild(name)
+                    tr.appendChild(author)
+                    tr.appendChild(category_name)
+                    tr.appendChild(price)
+                    tr.appendChild(discount)
+                    tr.appendChild(newprice)
+                    tr.appendChild(quantity)
+                    tr.appendChild(describes)
+                    tr.appendChild(img)
+                    tr.appendChild(button)
+
+                    $("#table-product").append(tr)
                 })
-                const button_delete = document.createElement("a");
-                button_delete.innerHTML = "<button class=\"button delete\">Xóa</button>"
-                button.appendChild(button_update)
-                button.appendChild(button_delete)
-
-                tr.appendChild(id)
-                tr.appendChild(name)
-                tr.appendChild(author)
-                tr.appendChild(category_name)
-                tr.appendChild(price)
-                tr.appendChild(discount)
-                tr.appendChild(newprice)
-                tr.appendChild(quantity)
-                tr.appendChild(describes)
-                tr.appendChild(img)
-                tr.appendChild(button)
-
-                $("#table-product").append(tr)
-            })
-        },
-        error: function(xhr, status, error) {
-            $("#table-product").html("<tr><td colspan='10'>Không có thể loại nào</td></tr>");
-        }
-    });  
+            },
+            error: function(xhr, status, error) {
+                $("#table-product").html("<tr><td colspan='10'>Không có thể loại nào</td></tr>");
+            }
+        });  
+    }
+    loadProduct();
     
     function updateProduct(id, category) {
         $.get('http://localhost:8080/products/id?id='+id, function(data) {
@@ -203,4 +211,21 @@
             $(".edit-product-form").append(form)
             $(".edit-product-form").show();
         })
+    }
+
+    function deleteProduct (id) {
+        $.ajax({
+            type: 'DELETE', // Phương thức gửi request
+            url: 'http://localhost:8080/products/'+id, // Địa chỉ URL của endpoint server
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
+            success: function(response) {
+                console.log(response)
+                loadProduct()
+            },
+            error: function(xhr, status, error) {
+                console.log(status)
+            }
+        });
     }
