@@ -130,10 +130,10 @@
          const name = $("input[name='name']").val();
          const author = $("input[name='author']").val();
          const category = $("select[name='category']").val();
-         const price = $("input[name='author']").val();
-         const discount = $("input[name='author']").val();
-         const quantity = $("input[name='author']").val();
-         const describe = $("input[name='author']").val();
+         const price = $("input[name='price']").val();
+         const discount = $("input[name='discount']").val();
+         const quantity = $("input[name='quantity']").val();
+         const describe = $("input[name='describe']").val();
          const img = $("#image-upload").val();
 
          console.log(img);
@@ -149,23 +149,25 @@
             image: img.split("\\").pop()
          }
 
+         console.log(formData_2)
+
          
-      //    $.ajax({
-      //       type: 'POST', // Phương thức gửi request
-      //       url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
-      //       data: JSON.stringify(formData), // Dữ liệu gửi đi
-      //       dataType: 'json',
-      //       contentType:"application/json; charset=utf-8",
-      //       xhrFields: {
-      //           withCredentials: true // Thêm withCredentials vào XHR
-      //       },
-      //       success: function(response) {
-
-      //       },
-      //       error: function(xhr, status, error) {
-
-      //       }
-      //   });
+         $.ajax({
+            type: 'POST', // Phương thức gửi request
+            url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
+            data: JSON.stringify(formData_2), // Dữ liệu gửi đi
+            dataType: 'json',
+            contentType:"application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
+            success: function(response) {
+               console.log(response)
+            },
+            error: function(xhr, status, error) {
+               location.reload(true);
+            }
+        });
 
       var formData = new FormData();
          var fileInput = document.getElementById('image-upload'); // giả sử 'fileInput' là id của thẻ input type="file"
@@ -175,7 +177,7 @@
 
          $.ajax({
             type: 'POST',
-            url: 'http://localhost:5500/client/upload_image.php',
+            url: 'http://localhost:5500/bookstore/client/upload_image.php',
             data: formData,
             processData: false, // Không xử lý dữ liệu
             contentType: false, // Không đặt Content-Type header

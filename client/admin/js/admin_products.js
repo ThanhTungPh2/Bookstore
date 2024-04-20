@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
     $(".edit-product-form").hide();
     //Load thể loại
     let category;
@@ -204,4 +204,3 @@ $(document).ready(function() {
             $(".edit-product-form").show();
         })
     }
-})
