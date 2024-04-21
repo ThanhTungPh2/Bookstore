@@ -1,7 +1,9 @@
 package com.thanhtung.bookstore.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,5 +37,15 @@ public class categoryController {
     @PostMapping()
     public String addCategory(@RequestBody Categories c) {
         return cService.addCategory(c);
+    }
+
+    @PutMapping()
+    public String changeStatus(@RequestParam("id") int id, @RequestParam("status") int status) {
+        return cService.updateStatusCategory(id, status);
+    }
+
+    @PutMapping("update")
+    public String updateCategory(@RequestBody Categories c) {
+        return cService.updateCategory(c);
     }
 }

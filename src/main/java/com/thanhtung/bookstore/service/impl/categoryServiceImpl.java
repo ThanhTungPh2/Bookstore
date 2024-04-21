@@ -24,8 +24,8 @@ public class categoryServiceImpl implements categoryService {
     }
 
     @Override
-    public String deleteCategory(int id) {
-        cRepository.deleteById(id);
+    public String updateStatusCategory(int id, int status) {
+        cRepository.changeStatusCategory(id, status);
         return "Xoá category thành công";
     }
 

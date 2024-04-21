@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Loại sách</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link rel="stylesheet" href="../css/admin_style.css">
+   <script src="../../js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="flex">
+     
+           <a href="admin_page.html" class="logo">Admin</a>
+     
+           <nav class="navbar">
+            <a href="admin_page.html">Trang chủ</a>
+            <a href="admin_products.html">Sách</a>
+            <a href="admin_category.html">Thể loại</a>
+            <a href="admin_orders.html">Đơn hàng</a>
+            <a href="admin_users.html">Người dùng</a></a>
+            <a href="admin_contacts.html">Tin nhắn</a>
+           </nav>
+     
+           <div class="icons">
+              <div id="menu-btn" class="fas fa-bars"></div>
+              <div id="user-btn" class="fas fa-user"></div>
+           </div>
+     
+           <div class="account-box">
+              <p>Tên người dùng : <br><span id="name-user"></span></p>
+              <p>Email : <br><span id="email-user"></span></p>
+              <a href="" class="delete-btn" id="logout_btn">Đăng xuất</a>
+              <!-- <div><a href="login.php">Đăng nhập</a> | <a href="register.php">Đăng ký</a></div> -->
+           </div>
+     
+        </div>
+     
+     </header>
+
+   <section class="add-products">
+
+      <h1 class="title">Thể loại sách</h1>
+
+      <form action="" method="post" enctype="multipart/form-data">
+         <h3>Thêm thể loại</h3>
+         <input type="text" name="name" class="box" placeholder="Thể loại" required>
+         <input type="text" name="describes" class="box" placeholder="Mô tả" required>
+         <input type="button" value="Thêm thể loại" name="add_category" class="btn">
+      </form>
+
+   </section>
+
+   <section class="show-products">
+
+      <div class="box-container">
+
+      </div>
+
+   </section>
+
+   <section class="edit-product-form">
+
+   </section>
+
+   <script type="module" src="../js/header.js"></script>
+   <script src="../js/admin_category.js"></script>
+   <script>
+      $("input[name='add_category']").on("click", function() {
+         let formData = {
+            name: $("input[name='name']").val(),
+            describes: $("input[name='describes']").val(),
+            status:1
+         }
+
+         $.ajax({
+            type: 'POST', // Phương thức gửi request
+            url: 'http://localhost:8080/category', // Địa chỉ URL của endpoint server
+            data: JSON.stringify(formData), // Dữ liệu gửi đi
+            dataType: 'json',
+            contentType:"application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
+            success: function(response) {
+                console.log(response)
+            },
+            error: function(xhr, status, error) {
+               console.log(status)
+            }
+        });
+      })
+   </script>
+</body>
+
+</html>

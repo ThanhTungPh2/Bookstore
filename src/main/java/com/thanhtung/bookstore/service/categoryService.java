@@ -7,7 +7,7 @@ import com.thanhtung.bookstore.model.Categories;
 public interface categoryService {
     public String addCategory(Categories p);
     public String updateCategory(Categories p);
-    public String deleteCategory(int id);
+    public String updateStatusCategory(int id, int status);
     public Categories getCategory(int id);
     public List<Categories> getALLCategories();
 }

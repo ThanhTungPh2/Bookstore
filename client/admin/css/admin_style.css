@@ -336,7 +336,7 @@ section {
   padding: 0.5rem 0;
   font-size: 1.5rem;
   color: var(--light-color);
-  text-align: left;
+  text-align: center;
 }
 
 .show-products .box-container .box img {

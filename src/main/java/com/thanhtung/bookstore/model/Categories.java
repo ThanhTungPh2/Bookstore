@@ -17,4 +17,5 @@ public class Categories {
     private int id;
     private String name;
     private String describes;
+    private int status;
 }

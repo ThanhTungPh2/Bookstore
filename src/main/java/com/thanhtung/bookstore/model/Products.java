@@ -24,12 +24,13 @@ public class Products {
     private int quantity;
     private String describes;
     private String image;
+    private int status;
     
     public Products() {}
 
-    @java.beans.ConstructorProperties({"id", "name", "author", "price", "discount", "newPrice","categoryId","quantity", "describes", "image"})
+    @java.beans.ConstructorProperties({"id", "name", "author", "price", "discount", "newPrice","categoryId","quantity", "describes", "image", "status"})
     public Products(int id, String name, String author, Double price, Double discount, Double newPrice,
-            int categoryId, int quantity, String describes, String image) {
+            int categoryId, int quantity, String describes, String image, int status) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -40,6 +41,7 @@ public class Products {
         this.quantity = quantity;
         this.describes = describes;
         this.image = image;
+        this.status = status;
     }
     
 }
