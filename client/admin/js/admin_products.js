@@ -57,7 +57,7 @@
                     const button_update = document.createElement("a");
                     button_update.innerHTML = "<button class=\"button edit\">Sửa</button>"
                     button_update.addEventListener("click", function() {
-                        updateProduct(element.id, category)
+                        updateProduct(element.id, element.id)
                     })
                     const button_delete = document.createElement("a");
                     button_delete.innerHTML = "<button class=\"button delete\">Xóa</button>"
@@ -90,7 +90,7 @@
     }
     loadProduct();
     
-    function updateProduct(id, category) {
+    function updateProduct(id, product_id) {
         $.get('http://localhost:8080/products/id?id='+id, function(data) {
             let product = data;
             console.log(product)
@@ -109,6 +109,7 @@
             update_name.setAttribute("required",true)
             update_name.setAttribute("placeholder","Tên sách")
             update_name.setAttribute("value",product.name);
+            update_name.setAttribute("name","update_name")
     
             const update_author = document.createElement("input");
             update_author.setAttribute("type", "text");
@@ -116,8 +117,10 @@
             update_author.setAttribute("required",true)
             update_author.setAttribute("placeholder","Tác giả")
             update_author.setAttribute("value",product.author);
+            update_author.setAttribute("name", "update_author")
     
             const update_category = document.createElement("select");
+            update_category.setAttribute("name","update_category")
             update_category.classList.add("box")
             $.ajax({
                 type: 'GET', // Phương thức gửi request
@@ -131,6 +134,7 @@
                     response.forEach(element => {
                         const option = document.createElement("option")
                         option.innerHTML = element.name
+                        option.setAttribute("value", element.id)
                         update_category.appendChild(option);
                     });
                 },
@@ -178,12 +182,91 @@
             inputFile.classList.add("box");
             inputFile.setAttribute("name", "update_image");
             inputFile.setAttribute("accept", "image/jpg, image/jpeg, image/png");
+            inputFile.addEventListener("change", function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.classList.add('active');
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            })
     
             const inputSubmit = document.createElement("input");
             inputSubmit.setAttribute("type", "button");
             inputSubmit.setAttribute("value", "Cập nhật");
             inputSubmit.setAttribute("name", "update_product");
             inputSubmit.classList.add("btn");
+            inputSubmit.addEventListener("click", function() {
+                const name = $("input[name='update_name']").val();
+                const author = $("input[name='update_author']").val();
+                const category = $("select[name='update_category']").val();
+                const price = $("input[name='update_price']").val();
+                const discount = $("input[name='update_discount']").val();
+                const quantity = $("input[name='update_quantity']").val();
+                const describe = $("input[name='update_describe']").val();
+                const img = $("input[name='update_image']").val();
+
+                let image = (img.split("\\").pop() == "" ? product.image:img.split("\\").pop())
+
+                let formData_2 = {
+                    id: product_id,
+                    name: name,
+                    author: author,
+                    price: price,
+                    discount: discount,
+                    categoryId: category,
+                    quantity: quantity,
+                    describes: describe,
+                    image: image
+                }
+
+                console.log(formData_2)
+
+                
+                $.ajax({
+                    type: 'PUT', // Phương thức gửi request
+                    url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
+                    data: JSON.stringify(formData_2), // Dữ liệu gửi đi
+                    dataType: 'json',
+                    contentType:"application/json; charset=utf-8",
+                    xhrFields: {
+                        withCredentials: true // Thêm withCredentials vào XHR
+                    },
+                    success: function(response) {
+                        console.log(response)
+                    },
+                    error: function(xhr, status, error) {
+                        location.reload(true);
+                    }
+                });
+
+                var formData = new FormData();
+                var fileInput = document.querySelector("input[name='update_image']"); // giả sử 'fileInput' là id của thẻ input type="file"
+                // Lấy file từ input và thêm vào FormData
+                formData.append('image', fileInput.files[0]);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:5500/bookstore/client/upload_image.php',
+                    data: formData,
+                    processData: false, // Không xử lý dữ liệu
+                    contentType: false, // Không đặt Content-Type header
+                    xhrFields: {
+                    withCredentials: true
+                    },
+                    success: function(response) {
+                        console.log(response)
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(status)
+                    }
+                });
+            })
     
             const inputReset = document.createElement("input");
             inputReset.setAttribute("type", "button");
