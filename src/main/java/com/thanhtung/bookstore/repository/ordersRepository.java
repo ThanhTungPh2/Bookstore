@@ -1,6 +1,7 @@
 package com.thanhtung.bookstore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ public interface ordersRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o WHERE o.status = 'Đã xác nhận' AND o.userId = :userId")
     public List<Orders> findAllByUserId(int userId);
 
-    @Query("SELECT o FROM Orders o WHERE o.status = 'Đã xác nhận'")
+    @Query("SELECT o FROM Orders o")
     public List<Orders> findAllOrders();
 
     @Procedure(name = "UPDATE_ORDERS")
@@ -32,4 +33,9 @@ public interface ordersRepository extends JpaRepository<Orders, Integer> {
         @Param("note") String note,
         @Param("status_param") String status
     );
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE Orders o SET o.status = :status WHERE o.id = :id")
+    public int changeStatusOrder(@Param("id") int id, @Param("status") String status);
 }

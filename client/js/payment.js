@@ -90,7 +90,7 @@ btnOrder.addEventListener("click", function(e) {
                 console.log(response);
             },
             error: function(xhr, status, error) {
-
+                console.log(status)
             }
         });
     } else {

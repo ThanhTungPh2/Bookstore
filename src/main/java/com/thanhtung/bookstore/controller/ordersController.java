@@ -1,6 +1,7 @@
 package com.thanhtung.bookstore.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thanhtung.bookstore.model.Orders;
 import com.thanhtung.bookstore.service.ordersService;
-import java.util.List;
 
 
 @RestController
@@ -24,7 +24,7 @@ public class ordersController {
     }
 
     @GetMapping("{orderId}")
-    public Orders getOder(@PathVariable("orderId") int id) {
+    public String getOder(@PathVariable("orderId") int id) {
         return oService.getOder(id);
     }
 
@@ -34,7 +34,7 @@ public class ordersController {
     }
 
     @GetMapping("/All")
-    public List<Orders> getAllOrders() {
+    public String getAllOrders() {
         return oService.getAllOrders();
     }
     
@@ -46,5 +46,10 @@ public class ordersController {
     @PutMapping()
     public String updateOder(@RequestBody Orders o) {
         return oService.updateOder(o);
+    }
+
+    @PatchMapping()
+    public String changeStatus(@RequestBody Orders o) {
+        return oService.changeStatus(o);
     }
 }

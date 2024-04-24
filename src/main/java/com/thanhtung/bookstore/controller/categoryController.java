@@ -44,7 +44,7 @@ public class categoryController {
         return cService.updateStatusCategory(id, status);
     }
 
-    @PutMapping("update")
+    @PatchMapping("update")
     public String updateCategory(@RequestBody Categories c) {
         return cService.updateCategory(c);
     }

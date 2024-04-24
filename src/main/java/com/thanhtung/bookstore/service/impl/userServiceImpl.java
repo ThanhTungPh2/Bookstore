@@ -1,6 +1,7 @@
 package com.thanhtung.bookstore.service.impl;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import com.thanhtung.bookstore.model.ChangePasswordRequest;
 import com.thanhtung.bookstore.service.userService;
@@ -45,6 +46,25 @@ public class userServiceImpl implements userService {
         
     }
 
-    
-    
+    @Override
+    public String addUsers(Users u) {
+        uRepository.save(u);
+        return "Thêm thành công";
+    }
+
+    @Override
+    public void changeStatusUser(int id, int status) {
+        uRepository.changeStatusUser(id, status);
+    }
+
+    @Override
+    public List<Users> getAllUsers() {
+        return uRepository.findAll();
+    }
+
+    @Override
+    public Optional<Users> getUsersById(int userId) {
+        return uRepository.findById(userId);
+    }
+
 }

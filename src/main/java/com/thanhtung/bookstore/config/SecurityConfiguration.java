@@ -67,6 +67,7 @@ public class SecurityConfiguration {
         corsConfiguration.addAllowedMethod("GET"); 
         corsConfiguration.addAllowedMethod("PUT");
         corsConfiguration.addAllowedMethod("DELETE"); 
+        corsConfiguration.addAllowedMethod("PATCH");
         corsConfiguration.addAllowedHeader("*"); // Chấp nhận tất cả các header
         corsConfiguration.setAllowCredentials(true); // Cho phép gửi cookie trong yêu cầu CORS
 

@@ -132,7 +132,7 @@ function updateCategory(box, element) {
             describes: $("input[name='update_describes']").val(),
         }
         $.ajax({
-            type: 'PUT', // Phương thức gửi request
+            type: 'PATCH', // Phương thức gửi request
             url: 'http://localhost:8080/category/update', // Địa chỉ URL của endpoint server
             data: JSON.stringify(formData), // Dữ liệu gửi đi
             dataType: 'json',
