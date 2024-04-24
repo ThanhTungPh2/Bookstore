@@ -16,6 +16,8 @@ import com.thanhtung.bookstore.service.userService;
 import lombok.RequiredArgsConstructor;
 import com.thanhtung.bookstore.model.Users;
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
 @RequestMapping("/users")
@@ -36,7 +38,24 @@ public class userController {
     }
 
     @GetMapping("/USER")
-    public List<Users> getAllUsers () {
+    public List<Users> getAllUsersUser () {
         return uService.getUsers(Role.USER);
     }
+
+    @GetMapping("/ALL")
+    public List<Users> getAllUsers () {
+        return uService.getAllUsers();
+    }
+
+    @PostMapping()
+    public String addUsers(@RequestBody Users u) {
+        return uService.addUsers(u);
+    }
+
+    @PatchMapping("/status")
+    public String changeStatus(@RequestBody Users u) {
+        uService.changeStatusUser(u.getId(), u.getStatus());
+        return "Thành công";
+    }
+    
 }

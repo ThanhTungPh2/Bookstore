@@ -5,10 +5,11 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Loại sách</title>
+   <title>Đơn hàng</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="stylesheet" href="../css/tung.css">
    <script src="../../js/jquery-3.7.1.min.js"></script>
 </head>
 
@@ -44,59 +45,18 @@
      
      </header>
 
-   <section class="add-products">
+   <section class="orders">
 
-      <h1 class="title">Thể loại sách</h1>
+      <h1 class="title">Chi tiết đơn hàng</h1>
+      <div class="cart-detail">
 
-      <form action="" method="post" enctype="multipart/form-data">
-         <h3>Thêm thể loại</h3>
-         <input type="text" name="name" class="box" placeholder="Thể loại" required>
-         <input type="text" name="describes" class="box" placeholder="Mô tả" required>
-         <input type="button" value="Thêm thể loại" name="add_category" class="btn">
-      </form>
-
-   </section>
-
-   <section class="show-products">
-
-      <div class="box-container">
 
       </div>
-
-   </section>
-
-   <section class="edit-product-form">
-
    </section>
 
    <script type="module" src="../js/header.js"></script>
-   <script src="../js/admin_category.js"></script>
-   <script>
-      $("input[name='add_category']").on("click", function() {
-         let formData = {
-            name: $("input[name='name']").val(),
-            describes: $("input[name='describes']").val(),
-            status:1
-         }
+   <script type="module" src="../js/admin_orders_details.js"></script>
 
-         $.ajax({
-            type: 'POST', // Phương thức gửi request
-            url: 'http://localhost:8080/category', // Địa chỉ URL của endpoint server
-            data: JSON.stringify(formData), // Dữ liệu gửi đi
-            dataType: 'json',
-            contentType:"application/json; charset=utf-8",
-            xhrFields: {
-                withCredentials: true // Thêm withCredentials vào XHR
-            },
-            success: function(response) {
-                console.log(response)
-            },
-            error: function(xhr, status, error) {
-               console.log(status)
-            }
-        });
-      })
-   </script>
 </body>
 
 </html>

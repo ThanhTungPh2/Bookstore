@@ -34,6 +34,7 @@ public class Users implements UserDetails{
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private Integer status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

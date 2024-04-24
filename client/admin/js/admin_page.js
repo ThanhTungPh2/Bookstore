@@ -11,10 +11,8 @@ $.ajax({
         withCredentials: true // Thêm withCredentials vào XHR
     },
     success: function(response) {
-      orders.innerText = response.length;
-      response.forEach(element => {
-        
-      });
+      let data = JSON.parse(response)
+      orders.innerText = data.length;
     },
 });
 

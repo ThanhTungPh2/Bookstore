@@ -14,6 +14,9 @@ public interface cartsRepository extends JpaRepository<Carts, Integer > {
     @Query(value = "SELECT c FROM Carts c INNER JOIN Orders o ON c.orderId = o.id WHERE o.userId = :id AND o.status = :status")
     List<Carts> findAllByUserId(@Param("id") Integer id, @Param("status") String status);
 
+    @Query(value = "SELECT c FROM Carts c INNER JOIN Orders o ON c.orderId = o.id WHERE o.id = :id")
+    List<Carts> findAllByOrderId(@Param("id") Integer id);
+
     @Procedure(name = "THEM_SACH")
     @Transactional
     void THEM_SACH(@Param("user_id_param") Integer user_id

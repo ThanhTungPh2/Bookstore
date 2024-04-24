@@ -19,7 +19,8 @@ $(document).ready(function() {
             name: name,
             email: email,
             password: password,
-            role: 'USER'
+            role: 'USER',
+            status:1
         };
 
         // Gửi request Ajax

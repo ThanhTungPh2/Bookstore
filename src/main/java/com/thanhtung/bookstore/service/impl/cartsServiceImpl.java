@@ -78,6 +78,33 @@ public class cartsServiceImpl implements cartService {
         return jsonProcess.objectToJson(result);
     }
 
+    @Override
+    public String getAllCartByOrder(int id) {
+        List<Carts> lc = cRepository.findAllByOrderId(id);
+        
+        ObjectNode result = objectMapper.createObjectNode();
+        result.put("orderId", lc.get(0).getOrderId());
+        result.put("userId",  lc.get(0).getUserId());
+        // Khởi tạo một ArrayNode mới
+        ArrayNode product = objectMapper.createArrayNode();
+        result.set("product", product);
     
+        for (Carts item : lc) {
+            // Lấy giá trị productId từ JsonNode và chuyển đổi thành kiểu int
+            int productId = item.getProductId();
     
+            // Gọi phương thức getProducts với productId đã lấy được
+            ObjectNode updatedProduct = jsonProcess.objectToObjectNode(pService.getProducts(productId));
+            updatedProduct.remove("quantity");
+            updatedProduct.remove("newPrice");
+            updatedProduct.remove("price");
+            updatedProduct.put("quantity", item.getQuantity());
+            updatedProduct.put("price", item.getPrice());
+            // Cập nhật thuộc tính "product" trong item và thêm vào result
+            product.add(updatedProduct);
+        }
+    
+        // Chuyển đổi result thành chuỗi JSON và trả về
+        return jsonProcess.objectToJson(result);
+    }
 }
