@@ -10,49 +10,10 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <link rel="stylesheet" href="../css/style.css">
    <link rel="stylesheet" href="../css/scroll.css">
+   <link rel="stylesheet" href="../css/pagination.css">
    <script src="../js/jquery-3.7.1.min.js"></script>
-   <script >
-      document.addEventListener("DOMContentLoaded", function () {
-  const scrollImages = document.querySelector(".scroll-images");
-  const scrollLength = scrollImages.scrollWidth - scrollImages.clientWidth;
-  const leftButton = document.querySelector(".left");
-  const rightButton = document.querySelector(".right");
-
-  function checkScroll() {
-    const currentScroll = scrollImages.scrollLeft;
-    if (currentScroll === 0) {
-      leftButton.setAttribute("disabled", "true");
-      rightButton.removeAttribute("disabled");
-    } else if (currentScroll === scrollLength) {
-      rightButton.setAttribute("disabled", "true");
-      leftButton.removeAttribute("disabled");
-    } else {
-      leftButton.removeAttribute("disabled");
-      rightButton.removeAttribute("disabled");
-    }
-  }
-
-  scrollImages.addEventListener("scroll", checkScroll);
-  window.addEventListener("resize", checkScroll);
-  checkScroll();
-
-  function leftScroll() {
-    scrollImages.scrollBy({
-      left: -200,
-      behavior: "smooth"
-    });
-  }
-
-  function rightScroll() {
-    scrollImages.scrollBy({
-      left: 200,
-      behavior: "smooth"
-    });
-  }
-
-  leftButton.addEventListener("click", leftScroll);
-  rightButton.addEventListener("click", rightScroll);
-});
+   <script src="../js/scroll.js">
+      
    </script>
 </head>
 
@@ -97,73 +58,34 @@
 
    <section class="products">
       <h2 class="title">Tất cả sách</h2>
-      <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1250px; margin: 0 auto;">
-         <div class="cover">
-            <button class="left" onclick="leftScroll()">
-            <i class="fas fa-angle-double-left"></i>
-            </button>
-            <div class="scroll-images">
-            <div class="child">
-               <p>Card 1</p>
-            </div>
-            <div class="child">
-               <p>Card 2</p>
-            </div>
-            <div class="child">
-               <p>Card 3</p>
-            </div>
-            <div class="child">
-               <p>Card 4</p>
-            </div>
-            <div class="child">
-               <p>Card 5</p>
-            </div>
-            <div class="child">
-               <p>Card 6</p>
-            </div>
-            <div class="child">
-               <p>Card 7</p>
-            </div>
-            <div class="child">
-               <p>Card 8</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            <div class="child">
-               <p>Card 9</p>
-            </div>
-            </div>
-            <button class="right" onclick="rightScroll()">
-            <i class="fas fa-angle-double-right"></i>
-            </button>
+      <div class="cover">
+         <button class="left" onclick="leftScroll()">
+           <i class="fas fa-angle-double-left"></i>
+         </button>
+         <div class="scroll-images">
+           
          </div>
-         <select class="sort-box">
+         <button class="right" onclick="rightScroll()">
+           <i class="fas fa-angle-double-right"></i>
+         </button>
+       </div>
+         <!-- <select class="sort-box">
             <option value="2">Sắp xếp</option>
             <option value="1">Sách mới nhất</option>
             <option value="2">Sách cũ nhất</option>
             <option value="3">Giá tăng dần</option>
             <option value="4">Giá giảm dần</option>
-         </select>
-      </div>
+         </select> -->
       <div style="clear:both"></div>
 
       <div class="box-container" id="listBook">
 
       </div>
-
+      <div class="box-pagination">
+         <div class="pagination">
+            
+          </div>
+      </div>
    </section>
 
    <div id="footer">

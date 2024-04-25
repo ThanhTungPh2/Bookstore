@@ -15,10 +15,10 @@ public class Products {
     private int id;
     private String name;
     private String author;
-    private Double price;
-    private Double discount;
+    private int price;
+    private int discount;
     @Column(name = "new_price")
-    private Double newPrice;
+    private int newPrice;
     @Column(name = "category_id")
     private int categoryId;
     private int quantity;
@@ -29,7 +29,7 @@ public class Products {
     public Products() {}
 
     @java.beans.ConstructorProperties({"id", "name", "author", "price", "discount", "newPrice","categoryId","quantity", "describes", "image", "status"})
-    public Products(int id, String name, String author, Double price, Double discount, Double newPrice,
+    public Products(int id, String name, String author, Integer price, Integer discount, Integer newPrice,
             int categoryId, int quantity, String describes, String image, int status) {
         this.id = id;
         this.name = name;

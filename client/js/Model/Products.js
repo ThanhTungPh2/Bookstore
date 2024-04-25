@@ -38,7 +38,11 @@ export class Product {
     productLink_2.setAttribute('href', ``);
     const productName = document.createElement('div');
     productName.classList.add('name');
-    productLink_2.innerHTML = this.name;
+    if (this.name.length > 50) {
+      productLink_2.innerHTML = this.name.substring(0, 50) + '...';
+    }
+    else
+      productLink_2.innerHTML = this.name;
 
     //Giá
     const productPrice = document.createElement('div');

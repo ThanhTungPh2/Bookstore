@@ -22,5 +22,11 @@ public interface productsRepository extends JpaRepository<Products, Integer> {
     @Transactional
     @Query("UPDATE Products p SET p.status = 0 WHERE p.id = :id")
     int deleteProducts(@Param("id") int id);
+
+    @Query("SELECT p FROM Products p JOIN Categories c ON p.categoryId = c.id WHERE p.status = 1 AND c.status = 1")
+    List<Products> findAllProducts();
+
+    @Query("SELECT p FROM Products p JOIN Categories c ON p.categoryId = c.id WHERE p.status = 1 AND c.status = 1 AND c.id = :id")
+    List<Products> findAllProductsByCategoryId(@Param("id") int id);
     
 }
