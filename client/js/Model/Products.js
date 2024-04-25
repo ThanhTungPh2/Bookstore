@@ -117,16 +117,10 @@ export class Product {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-         
+         console.log(response)
         },
         error: function(xhr, status, error) {
-           //Hiển thị message
-           $('.message span').html('Đã thêm sản phẩm vào giỏ hàng!')
-           $('.message').show()
- 
-           setTimeout(function() {
-             $('.message').hide()
-           }, 3000);
+           console.log(status)
         }
       });
     }

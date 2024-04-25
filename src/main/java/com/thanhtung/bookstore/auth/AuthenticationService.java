@@ -46,7 +46,11 @@ public class AuthenticationService {
         );
 
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        if (user.getStatus() == 0)
+            return AuthenticationResponse.builder().message("Tài khoản đã bị khoá").status(0).build();
+        else {
+            var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder().token(jwtToken).status(1).message("Đăng nhập thành công").build();
+        }
     }
 }

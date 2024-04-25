@@ -28,7 +28,8 @@ $(document).ready(function() {
             },
             success: function(response) {
                 //Hiển thị message
-                $('.message span').html('Đăng nhập thành công!')
+                console.log(response)
+                $('.message span').html(response.message)
                 $('.message').show()
 
                 setTimeout(function() {

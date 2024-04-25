@@ -40,8 +40,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         AuthenticationResponse temp = service.authenticate(request);
+
+        if (temp.getStatus() == 0)
+            return ResponseEntity.ok(temp);
+        
         ResponseCookie accessCookie = ResponseCookie.from("accessToken", temp.getToken())
                 .httpOnly(true)
                 .secure(true)
@@ -61,6 +65,6 @@ public class AuthenticationController {
                 .maxAge(18000)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, checkLogCookie.toString());
-        return ResponseEntity.ok(AuthenticationResponse.builder().message("Done").build());
+        return ResponseEntity.ok(AuthenticationResponse.builder().message("Đăng nhập thành công!").build());
     }
 }
