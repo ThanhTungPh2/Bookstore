@@ -47,10 +47,10 @@ export class Product {
     //Giá
     const productPrice = document.createElement('div');
     productPrice.classList.add('price');
-    productPrice.innerHTML = this.newPrice + ' VND / ';
+    productPrice.innerHTML = this.newPrice.toLocaleString('en-US') + ' VND / ';
     const oldprice = document.createElement('span');
     oldprice.classList.add('old-price');
-    oldprice.innerHTML = this.price + 'VND';
+    oldprice.innerHTML = this.price.toLocaleString('en-US') + 'VND';
     productPrice.appendChild(oldprice);
 
     const productQuantityInput = document.createElement('input');

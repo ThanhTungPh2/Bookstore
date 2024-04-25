@@ -15,8 +15,8 @@ $(document).ready(function() {
                 })).item())      
             })
         })
-        $("._NewPrice").html(data.newPrice + " VND")
-        $("._Price").html(data.price + " VND");
+        $("._NewPrice").html(data.newPrice.toLocaleString('en-US') + " VND")
+        $("._Price").html(data.price.toLocaleString('en-US') + " VND");
         $(".describe").html("Số lượng còn lại: "+data.quantity);
         $(".qty").attr('max',data.quantity);
     })

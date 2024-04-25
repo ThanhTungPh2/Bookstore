@@ -1,11 +1,11 @@
 import {Users} from "./Users.js"
 
 export class Carts {
-  
     constructor(element){
       this.userId = element.userId;
       this.orderId = element.orderId;
       this.listProducts = element.product;
+      this.sum = 0;
     }
   
     item() {
@@ -13,6 +13,7 @@ export class Carts {
         box_container.classList.add("box-container")
 
         this.listProducts.forEach(k => {
+            this.sum += k.quantity*k.price;
             const box = document.createElement("div");
             box.classList.add("box")
 
@@ -35,7 +36,7 @@ export class Carts {
 
             const price = document.createElement("p");
             price.classList.add("price");
-            price.innerText = k.price + " VND (SL: " + k.quantity + ")";
+            price.innerText = k.price.toLocaleString('en-US') + " VND (SL: " + k.quantity + ")";
 
             const input = document.createElement("input");
             input.type = "number";
@@ -60,7 +61,7 @@ export class Carts {
             box.appendChild(submit);
             box_container.appendChild(box);
           });
-
+        document.querySelector(".cart-total p span").innerText = this.sum.toLocaleString('en-US') + " VND"
         return box_container; 
     }
     static deleteCarts(user_id, product_id) {

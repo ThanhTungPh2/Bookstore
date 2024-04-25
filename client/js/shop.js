@@ -30,9 +30,7 @@ function generateCategory() {
                     sessionStorage.setItem("category_id", item.id);
                     $.get('http://localhost:8080/products/byCategory?category_id='+item.id, function(data) {
                         productNew.innerHTML = null;
-                        data.forEach(element => {
-                            productNew.appendChild(new Product(element).item());
-                        });
+                        generatePaging(data);
                     })
                     var elements = document.querySelectorAll(".scroll-images > *");
 
@@ -52,6 +50,70 @@ function generateCategory() {
         }
     });
 }
+
+function generatePaging(data) {
+    // Số lượng trang
+    var totalPages = Math.ceil(data.length / 8);
+
+    // Phần tử cha
+    var paginationContainer = document.createElement("div");
+    paginationContainer.classList.add("pagination");
+
+    // Tạo nút Previous («)
+    var previousLink = document.createElement("a");
+    previousLink.href = "#";
+    previousLink.textContent = "«";
+    previousLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        let a = document.querySelector(".box-pagination .active").getAttribute("name")
+        if(a > 1)
+            document.querySelector(".box-pagination a[name='" + (parseInt(a) - 1) + "']").click();
+        console.log(a);
+    })
+    paginationContainer.appendChild(previousLink);
+    
+
+    // Tạo các nút trang
+    for (var i = 1; i <= totalPages; i++) {
+        (function(pageIndex) { // Sử dụng hàm wrapper để bắt giá trị của i
+            var pageLink = document.createElement("a");
+            pageLink.textContent = pageIndex;
+            pageLink.setAttribute("name",i)
+            pageLink.addEventListener("click", function(e) {
+                e.preventDefault();
+                productNew.innerHTML = null;
+                data.slice((pageIndex - 1) * 8, pageIndex * 8).forEach(element => {
+                    productNew.appendChild(new Product(element).item());
+                });
+                paginationContainer.querySelectorAll(".box-pagination a").forEach(link => {
+                    link.classList.remove("active");
+                });
+                pageLink.classList.add("active");
+            });
+            paginationContainer.appendChild(pageLink);
+        })(i);
+    }
+
+    // Tạo nút Next (»)
+    var nextLink = document.createElement("a");
+    nextLink.href = "#";
+    nextLink.textContent = "»";
+    nextLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        let a = document.querySelector(".box-pagination .active").getAttribute("name")
+        if(a < totalPages)
+            document.querySelector(".box-pagination a[name='" + (parseInt(a) + 1) + "']").click();
+        console.log(a);
+    })
+    paginationContainer.appendChild(nextLink);
+
+    // Ghi đè nội dung của phần tử cha vào .box-pagination
+    var boxPagination = document.querySelector(".box-pagination");
+    boxPagination.innerHTML = "";
+    boxPagination.appendChild(paginationContainer);
+    document.querySelector(".box-pagination a[name='1'").click();
+}
+
 generateCategory();
 
 
