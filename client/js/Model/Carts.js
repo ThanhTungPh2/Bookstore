@@ -5,7 +5,6 @@ export class Carts {
       this.userId = element.userId;
       this.orderId = element.orderId;
       this.listProducts = element.product;
-      this.sum = 0;
     }
   
     item() {
@@ -13,7 +12,6 @@ export class Carts {
         box_container.classList.add("box-container")
 
         this.listProducts.forEach(k => {
-            this.sum += k.quantity*k.price;
             const box = document.createElement("div");
             box.classList.add("box")
 
@@ -61,7 +59,6 @@ export class Carts {
             box.appendChild(submit);
             box_container.appendChild(box);
           });
-        document.querySelector(".cart-total p span").innerText = this.sum.toLocaleString('en-US') + " VND"
         return box_container; 
     }
     static deleteCarts(user_id, product_id) {
@@ -73,22 +70,29 @@ export class Carts {
         type: 'POST', // Phương thức gửi request
         url: 'http://localhost:8080/carts/delete', // Địa chỉ URL của endpoint server
         data: JSON.stringify(dataform), // Dữ liệu gửi đi
-        dataType: 'json',
         contentType:"application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-        },
-        error: function(xhr, status, error) {
           //Hiển thị message
-          $('.message span').html('Đã xoá sản phẩm vào giỏ hàng!')
+          $('.message span').html('Đã xoá sản phẩm trong giỏ hàng!')
           $('.message').show()
+          Carts.showCarts();
   
           setTimeout(function() {
             $('.message').hide()
           }, 3000);
-
+        },
+        error: function(xhr, status, error) {
+          //Hiển thị message
+          $('.message span').html('Xoá không thành công')
+          $('.message').show()
+  
+          setTimeout(function() {
+            $('.message').hide()
+            location.reload();
+          }, 3000);
         }
     });
     }
@@ -105,6 +109,7 @@ export class Carts {
            success: function(response) {
               let data = JSON.parse(response);
               cartsList.appendChild(new Carts(data).item())
+              Carts.calculateSumPrice(data.product);
            },
            error: function(xhr, status, error) {
               cartsList.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p><br>"
@@ -121,22 +126,31 @@ export class Carts {
         type: 'PUT', // Phương thức gửi request
         url: 'http://localhost:8080/carts/update', // Địa chỉ URL của endpoint server
         data: JSON.stringify(formData), // Dữ liệu gửi đi
-        dataType: 'json',
         contentType:"application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-        },
-        error: function(xhr, status, error) {
           //Hiển thị message
           $('.message span').html('Đã cập nhật sản phẩm trong giỏ hàng!')
           $('.message').show()
+          Carts.showCarts()
   
           setTimeout(function() {
             $('.message').hide()
           }, 3000);
+        },
+        error: function(xhr, status, error) {
+          //Hiển thị message
+          $('.message span').html('Cập nhật không thành công')
+          $('.message').show()
+  
+          setTimeout(function() {
+            $('.message').hide()
+            location.reload();
+          }, 3000);
 
+          // Tải lại trang
         }
       });
     }
@@ -155,12 +169,21 @@ export class Carts {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-
+          Carts.showCarts();
         },
         error: function(xhr, status, error) {
 
         }
       });
+    }
+    static calculateSumPrice(data) {
+      let sum = 0;
+      if(data) {
+        data.forEach(item => {
+          sum += item.quantity*item.price;
+        })
+      }
+      document.querySelector(".cart-total p span").innerText = sum.toLocaleString('en-US') + " VND"
     }
   }
 
