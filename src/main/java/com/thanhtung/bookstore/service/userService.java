@@ -15,4 +15,5 @@ public interface userService {
     public List<Users> getAllUsers();
     public String addUsers(Users u);
     public void changeStatusUser(int id, int status);
+    public Optional<Users> getUsersByEmail(String email); 
 }

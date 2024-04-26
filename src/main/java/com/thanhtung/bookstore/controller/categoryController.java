@@ -24,6 +24,11 @@ public class categoryController {
         this.cService = cService;
     }
 
+    @GetMapping("/all/1")
+    public List<Categories> getAllCategoryStatus() {
+        return cService.getALLCategoriesStatus();
+    }
+
     @GetMapping("/all")
     public List<Categories> getAllCategory() {
         return cService.getALLCategories();

@@ -14,7 +14,7 @@ const sort_box = document.querySelector(".sort-box");
 function generateCategory() {
     $.ajax({
         type: 'GET', // Phương thức gửi request
-        url: 'http://localhost:8080/category/all', // Địa chỉ URL của endpoint server
+        url: 'http://localhost:8080/category/all/1', // Địa chỉ URL của endpoint server
         xhrFields: {
             withCredentials: true // Thêm withCredentials vào XHR
         },

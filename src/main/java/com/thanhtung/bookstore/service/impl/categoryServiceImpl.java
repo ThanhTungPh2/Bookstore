@@ -30,6 +30,11 @@ public class categoryServiceImpl implements categoryService {
     }
 
     @Override
+    public List<Categories> getALLCategoriesStatus() {
+        return cRepository.findAllCategories();
+    }
+
+    @Override
     public List<Categories> getALLCategories() {
         return cRepository.findAll();
     }

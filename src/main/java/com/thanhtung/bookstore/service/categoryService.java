@@ -9,5 +9,6 @@ public interface categoryService {
     public String updateCategory(Categories p);
     public String updateStatusCategory(int id, int status);
     public Categories getCategory(int id);
+    public List<Categories> getALLCategoriesStatus();
     public List<Categories> getALLCategories();
 }

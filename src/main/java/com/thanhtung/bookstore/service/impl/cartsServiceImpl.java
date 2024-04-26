@@ -27,19 +27,19 @@ public class cartsServiceImpl implements cartService {
     @Override
     public String addToCart(spCart spc) {
         cRepository.THEM_SACH(spc.getUserId(), spc.getProductId(), spc.getQuantity());
-        return null;
+        return "Đã thêm sản phẩm vào giỏ hàng!";
     }
 
     @Override
     public String deleteToCart(spCart spc) {
         cRepository.XOA_SACH(spc.getUserId(), spc.getProductId());
-        return null;
+        return "Xoá thành công";
     }
 
     @Override
     public String deleteAllCart(spCart spCart) {
         cRepository.XOA_TAT_CA(spCart.getUserId());
-        return null;
+        return "Xoá tất cả thành công";
     }
 
     @Override

@@ -101,7 +101,7 @@ export class Search {
       document.addEventListener("click", function (e) {
           closeAllLists(e.target);
       });
-      }
+    }
     static showAutocomplete() {
         $.get('http://localhost:8080/products/all', function(data) {
             Search.autocomplete(document.getElementById("myInput"),data.map(function(item) {
@@ -110,6 +110,8 @@ export class Search {
         });
     }
     static showProduct(productNew, name) {
+      console.log(name)
+      productNew.innerHTML = null
       $.get('http://localhost:8080/products/byName?name='+name, function(data) {
         data.forEach(element => {
         productNew.appendChild(new Product(element).item());
@@ -117,13 +119,3 @@ export class Search {
     })
     }
 }
-Search.showAutocomplete();
-const listProduct = document.querySelector(".products .box-container");
-$("#myInput").on("keydown", function(e) {
-  if (e.keyCode === 13) {
-    Search.showProduct(listProduct, this.value);
-}
-})
-$(".btn").on("click",function(e) {
-    Search.showProduct(listProduct, document.getElementById("myInput").value);
-})

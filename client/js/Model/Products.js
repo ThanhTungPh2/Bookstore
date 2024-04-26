@@ -111,16 +111,22 @@ export class Product {
         type: 'POST', // Phương thức gửi request
         url: 'http://localhost:8080/carts/add', // Địa chỉ URL của endpoint server
         data: JSON.stringify(formData), // Dữ liệu gửi đi
-        dataType: 'json',
         contentType:"application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true // Thêm withCredentials vào XHR
         },
         success: function(response) {
-         console.log(response)
+         //Hiển thị message
+         $('.message span').html(response)
+         $('.message').show()
+
+         setTimeout(function() {
+           $('.message').hide()
+         }, 3000);
         },
         error: function(xhr, status, error) {
-           console.log(status)
+          //Hiển thị message
+          window.location.href = "../html/login.html"
         }
       });
     }

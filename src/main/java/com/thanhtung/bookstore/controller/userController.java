@@ -16,7 +16,11 @@ import com.thanhtung.bookstore.service.userService;
 import lombok.RequiredArgsConstructor;
 import com.thanhtung.bookstore.model.Users;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -46,6 +50,12 @@ public class userController {
     public List<Users> getAllUsers () {
         return uService.getAllUsers();
     }
+
+    @GetMapping("/Email")
+    public Optional<Users> getMethodName(@RequestParam("email") String email) {
+        return uService.getUsersByEmail(email);
+    }
+    
 
     @PostMapping()
     public String addUsers(@RequestBody Users u) {

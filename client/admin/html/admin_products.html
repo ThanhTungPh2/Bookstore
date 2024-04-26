@@ -10,6 +10,8 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <link rel="stylesheet" href="../css/admin_style.css">
    <link rel="stylesheet" href="../css/tung.css">
+   <link rel="stylesheet" href="../../css/pagination.css">
+   <link rel="stylesheet" href="../../css/scroll.css">
    <script src="../../js/jquery-3.7.1.min.js"></script>
 </head>
 
@@ -72,6 +74,18 @@
    </section>
 
    <section class="show-products">
+      <div class="cover">
+         <button class="left" onclick="leftScroll()">
+           <i class="fas fa-angle-double-left"></i>
+         </button>
+         <div class="scroll-images">
+           
+         </div>
+         <button class="right" onclick="rightScroll()">
+           <i class="fas fa-angle-double-right"></i>
+         </button>
+      </div>
+      <div class="box-pagination"></div>
       <table id="table-product" border="1">
          <tr>
             <th>Mã sách</th>
@@ -86,8 +100,8 @@
             <th>Ảnh</th>
             <th>Hành động</th>
          </tr>
-         
       </table>
+      
    </section>
 
    <section class="edit-product-form">
@@ -96,6 +110,7 @@
 
 
    <script type="module" src="../js/header.js"></script>
+   <script type="module" src="../../js/scroll.js"></script>
    <script src="../js/admin_products.js"></script>
    <script>
       const imageUpload = document.getElementById('image-upload');
