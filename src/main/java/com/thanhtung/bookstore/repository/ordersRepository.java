@@ -20,6 +20,9 @@ public interface ordersRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o")
     public List<Orders> findAllOrders();
 
+    @Query("SELECT o FROM Orders o WHERE o.email = :email")
+    public List<Orders> findAllByEmail(String email);
+
     @Procedure(name = "UPDATE_ORDERS")
     @Transactional
     public void UPDATE_ORDERS(

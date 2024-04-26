@@ -124,7 +124,7 @@ $(document).ready(function() {
         });
     }
     function find() {
-        $("#finđ_user").on("click",function(event) {
+        $("#find_user").on("click",function(event) {
             // Ngăn chặn hành vi mặc định của form (tải lại trang)
             event.preventDefault();
             console.log("meo")

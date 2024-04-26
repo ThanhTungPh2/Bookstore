@@ -10,6 +10,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <link rel="stylesheet" href="../css/admin_style.css">
    <link rel="stylesheet" href="../css/tung.css">
+   <link rel="stylesheet" href="../../css/search.css">
    <script src="../../js/jquery-3.7.1.min.js"></script>
 </head>
 
@@ -44,6 +45,27 @@
         </div>
      
      </header>
+   <section class="add-user">
+      <h1 class="title"> Tìm kiếm</h1>
+
+
+      <form action="" method="post" class="form-add-user">
+         <!-- <input type="text" name="name" placeholder="Nhập họ tên" required class="box"> -->
+         <form autocomplete="off" action="">
+            <div class="autocomplete">
+              <!-- <input id="myInput" type="text" name="myBook" placeholder="Tên sách bạn muốn tìm..." class="box"> -->
+              <input type="email" name="email" placeholder="Nhập email khách hàng" required class="box" style="width: 600px;"><br>
+            </div>
+            <input type="button" value="Tìm kiếm" class="btn" id="find_order">
+         </form>
+         <!-- <input type="password" name="cpassword" placeholder="Nhập lại mật khẩu" required class="box"> -->
+         <!-- <select name="user_type" class="box" style="width: 600px;"><br>
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+         </select><br> -->
+         <!-- <input type="button" value="Tìm kiếm" name="add_user" class="btn"> -->
+      </form>
+   </section>
 
    <section class="orders">
 
@@ -53,7 +75,7 @@
             <th>Mã đơn hàng</th>
             <th>Tên khách hàng</th>
             <th>Số điện thoại</th>
-            <th>Phương thức thanh toán </th>
+            <th>Email </th>
             <th>Địa chỉ nhận </th>
             <th>Lời nhắn</th>
             <th>Thời gian</th>

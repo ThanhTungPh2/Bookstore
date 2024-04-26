@@ -115,5 +115,10 @@ public class ordersServiceImpl implements ordersService {
         return "Cập nhật thành công";
     }
 
+    @Override
+    public List<Orders> getAllOrderByEmail(String email) {
+        return oRepository.findAllByEmail(email);
+    }
+
     
 }
