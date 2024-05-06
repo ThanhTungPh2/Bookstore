@@ -47,7 +47,6 @@ function generateOrder(data) {
         "Địa chỉ nhận",
         "Lời nhắn",
         "Thời gian",
-        "Tổng tiền",
         "Trạng thái",
         "Thao tác"
     ];
@@ -89,8 +88,8 @@ function generateOrder(data) {
         var td7 = document.createElement("td");
         td7.textContent = element.placedOn;
 
-        var td8 = document.createElement("td");
-        td8.textContent = "254600 VND";
+        // var td8 = document.createElement("td");
+        // td8.textContent = "254600 VND";
 
         // Tạo thẻ select và các option
         var select = document.createElement("select");
@@ -173,7 +172,7 @@ function generateOrder(data) {
         tr.appendChild(td5);
         tr.appendChild(td6);
         tr.appendChild(td7);
-        tr.appendChild(td8);
+        // tr.appendChild(td8);
         tr.appendChild(td9);
         tr.appendChild(td10)
 

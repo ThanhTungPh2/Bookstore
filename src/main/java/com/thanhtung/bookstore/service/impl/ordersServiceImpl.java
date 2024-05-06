@@ -1,7 +1,6 @@
 package com.thanhtung.bookstore.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.thanhtung.bookstore.model.Orders;
-import com.thanhtung.bookstore.model.Users;
 import com.thanhtung.bookstore.repository.ordersRepository;
 import com.thanhtung.bookstore.service.cartService;
 import com.thanhtung.bookstore.service.ordersService;

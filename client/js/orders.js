@@ -15,8 +15,9 @@ $.ajax({
             cart_detail.appendChild(new Order(element).item());
         });
         console.log(data)
-        if (!data)
-            cart_detail.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p>"
+        if (!data || data.length === 0) {
+            cart_detail.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p>";
+        }        
         
       },
       error: function(xhr, status, error) {
