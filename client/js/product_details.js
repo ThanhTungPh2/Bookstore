@@ -1,4 +1,5 @@
 import { Category } from "./Model/Category.js";
+import { Users } from "./Model/Users.js";
 
 $(document).ready(function() {
     $.get('http://localhost:8080/products/id?id='+sessionStorage.getItem("product_details_id"), function(data) {
@@ -59,10 +60,14 @@ $(document).ready(function() {
           });
         }
       } 
-    
-    
+      $("input[name='add_to_cart']").on("click", function() {
+        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val())
+      });
+      $("input[name='mua_ngay']").on("click", function() {
+        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val())
+        window.location.href = "./checkout.html";
+      })
 });
-
 
 {/* <input type="button" value="Mua ngay" name="mua_ngay" class="pay_product">
 <input type="button" value="Thêm vào giỏ hàng" name="add_to_cart" class="add_product"></input> */}
