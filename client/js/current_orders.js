@@ -4,18 +4,19 @@ import { Users } from "./Model/Users.js";
 const cart_detail = document.querySelector(".cart-detail");
 $.ajax({
       type: 'GET', // Phương thức gửi request
-      url: 'http://localhost:8080/orders/All/'+Users.checkLoggedCookie().id, // Địa chỉ URL của endpoint server
+      url: 'http://localhost:8080/orders/All2/'+Users.checkLoggedCookie().id, // Địa chỉ URL của endpoint server
       xhrFields: {
           withCredentials: true // Thêm withCredentials vào XHR
       },
       success: function(response) {
         const data = JSON.parse(response);
+        const filteredData = data.filter(item => item.status !== "Hoàn thành" && item.status !== "Carts");
         
-        data.reverse().forEach(element => {
+        filteredData.reverse().forEach(element => {
             cart_detail.appendChild(new Order(element).item());
         });
-        console.log(data)
-        if (!data || data.length === 0) {
+        console.log(filteredData)
+        if (!filteredData || filteredData.length === 0) {
             cart_detail.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p>";
         }        
         

@@ -32,7 +32,12 @@ public class ordersController {
 
     @GetMapping("/All/{userId}")
     public String getAllByUserId(@PathVariable("userId") int userid) {
-        return oService.getAllOderByUserId(userid, "Đã xác nhận");
+        return oService.getAllOderByUserId(userid, "Hoàn thành");
+    }
+
+    @GetMapping("/All2/{userId}")
+    public String getAllByUserId2(@PathVariable("userId") int userid) {
+        return oService.getAllOderByUserId(userid, null);
     }
 
     @PostMapping("/All/Email")

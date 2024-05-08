@@ -62,7 +62,8 @@ btnOrder.addEventListener("click", function(e) {
         message = "Số điện thoại không đúng";
     }
 
-    console.log(message)
+    var currentDate = new Date();
+    var formattedDate = currentDate.toISOString().slice(0, 10);
     // Perform validation
     if (message == "") {
         let formData = {
@@ -74,26 +75,31 @@ btnOrder.addEventListener("click", function(e) {
             method: credit,
             address: address,
             note: note,
-            placedOn: new Date().getDate(),
+            placedOn: formattedDate,
             status: "Chờ xác nhận"
         }
         $.ajax({
             type: 'PUT', // Phương thức gửi request
             url: 'http://localhost:8080/orders', // Địa chỉ URL của endpoint server
             data: JSON.stringify(formData), // Dữ liệu gửi đi
-            dataType: 'json',
             contentType:"application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true // Thêm withCredentials vào XHR
             },
             success: function(response) {
-                console.log(response);
+                $('.message span').html("Đặt hàng thành công");
+                $('.message').show()
+                setTimeout(function() {
+                    window.location.href = '../html/current_orders.html'
+                }, 2000);
             },
             error: function(xhr, status, error) {
-                console.log(status)
+                $('.message span').html("Đặt hàng thành công");
+                $('.message').show()
             }
         });
     } else {
-
+        $('.message span').html(message)
+        $('.message').show()
     }
 })

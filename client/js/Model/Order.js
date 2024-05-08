@@ -33,7 +33,7 @@ export class Order {
 
     const text_detail_3 = document.createElement("p");
     text_detail_3.classList.add("text-detail")
-    text_detail_3.innerText = "Trạng thái: "+this.status;
+    text_detail_3.innerHTML = "Trạng thái: <span style='color: #f05123'>"+this.status+"</span>";
 
     box_cart_detail.appendChild(text_detail_1);
     box_cart_detail.appendChild(text_detail_2);

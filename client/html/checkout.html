@@ -13,7 +13,10 @@
 </head>
 
 <body>
-
+   <div class="message">
+      <span></span>
+      <i class="fas fa-times"></i>
+   </div>
     <div id="header">
         <header class="header">
            <div class="header-2">
@@ -21,11 +24,12 @@
                  <a href="index.html" class="logo">PTT</a>
         
                  <nav class="navbar">
-                    <a href="index.html">Trang chủ</a>
-                    <a href="shop.html">Cửa hàng</a>
-                    <a href="contact.html">Liên hệ</a>
-                    <a href="orders.html">Đơn hàng</a>
-                 </nav>
+                  <a href="index.html">Trang chủ</a>
+                  <a href="shop.html">Cửa hàng</a>
+                  <a href="contact.html">Liên hệ</a>
+                  <a href="orders.html">Lịch sử mua hàng</a>
+                  <a href="current_orders.html">Đơn hàng</a>
+               </nav>
         
                  <div class="icons">
                     <div id="menu-btn" class="fas fa-bars"></div>
@@ -39,7 +43,7 @@
                         <p>Email <br><span id="email-user"></span></p>
                         <div>
                            <a href="" class="delete-btn" id="logout_btn">Đăng xuất</a>
-                           <a href="" class="delete-btn" id="change_password">Đổi mật khẩu</a>
+                           <a href="./change_password.html" class="delete-btn" id="change_password">Đổi mật khẩu</a>
                         </div>
                      </div>
                        <a href="register.html" class="register">Đăng ký</a>
@@ -135,6 +139,7 @@
 
    <script type="module" src="../js/header.js"></script>
    <script type="module"  src="../js/payment.js"></script>
+   <script type="module" src="../js/Model/Notice.js"></script>
 </body>
 </html>
 

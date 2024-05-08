@@ -9,7 +9,8 @@ function loadOrders() {
       },
       success: function(response) {
          let data = JSON.parse(response)
-         generateOrder(data)
+         const filteredData = data.filter(item => item.status !== "Carts");
+         generateOrder(filteredData.reverse())
       },
       error: function(xhr, status, error) {
 
@@ -112,7 +113,7 @@ function generateOrder(data) {
         }
         
         var option3 = document.createElement("option");
-        option3.setAttribute("value", "Đã giao");
+        option3.setAttribute("value", "Đang giao");
         option3.textContent = "Đã giao";
         if (element.status === "Đã giao") {
             option3.setAttribute("selected", "selected");
@@ -124,11 +125,19 @@ function generateOrder(data) {
         if (element.status === "Huỷ") {
             option4.setAttribute("selected", "selected");
         }
+        var option5 = document.createElement("option");
+        option5.setAttribute("value", "Hoàn thành");
+        option5.textContent = "Hoàn thành";
+        if (element.status === "Hoàn thành") {
+            option5.setAttribute("selected", "selected");
+            select.disabled = true;
+        }
         
         // Thêm các option vào select
         select.appendChild(option1);
         select.appendChild(option2);
         select.appendChild(option3);
+        select.appendChild(option5);
         select.appendChild(option4);
 
         select.addEventListener("change", function() {

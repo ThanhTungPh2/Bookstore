@@ -40,14 +40,18 @@ public class ordersServiceImpl implements ordersService {
 
     @Override
     public String getAllOderByUserId(int userId, String status) {
-        List<Orders> lo = oRepository.findAllByUserId(userId);
+        List<Orders> lo;
+        if (status != null)
+            lo = oRepository.findAllByUserId(userId, status);
+        else
+        lo = oRepository.findAllByUserId(userId);
 
         ArrayNode order = jsonProcess.objectMapper.createArrayNode();
         
         for (Orders item : lo) {
             ObjectNode result = jsonProcess.objectToObjectNode(item);
             
-            ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCart(userId, "Đã xác nhận"));
+            ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCartByOrder(item.getId()));
             updatedProduct.remove("orderId");
             updatedProduct.remove("userId");
             result.set("carts", updatedProduct);
@@ -90,7 +94,7 @@ public class ordersServiceImpl implements ordersService {
         for (Orders item : lo) {
             ObjectNode result = jsonProcess.objectToObjectNode(item);
             try {
-                ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCart(item.getUserId(), "Đã xác nhận"));
+                ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCartByOrder(item.getId()));
                 String user_name = uService.getUsersById(item.getUserId()).orElseThrow().getName();
                 updatedProduct.remove("orderId");
                 updatedProduct.remove("userId");
