@@ -11,4 +11,10 @@ export class Notice {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
         return emailRegex.test(email);
     }
-} 
+
+    static setupMessage() {
+        $('.message').hide();
+        $('.message i').click(function() { $(".message").hide() })
+    }
+}
+Notice.setupMessage();
