@@ -21,13 +21,14 @@ public class productsServiceImpl implements productsService{
     @Override
     public String addProducts(Products p) {
         pRepository.save(p);
-        return "Thên sản phẩm thành công";
+        return "Thêm sản phẩm thành công";
     }
 
     @Override
     public String deleteProducts(int id) {
-        pRepository.deleteById(id);
-        return "Xoá sản phẩm thành công";
+        Products p = this.getProducts(id);
+        pRepository.deleteProducts(id,p.getStatus() == 0 ? 1:0);
+        return "Update trạng thái thành công";
     }
 
     @Override

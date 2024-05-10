@@ -108,8 +108,18 @@
                 updateProduct(element.id, element.id)
             })
             const button_delete = document.createElement("a");
-            button_delete.innerHTML = "<button class=\"button delete\">Xóa</button>"
-            button_delete.addEventListener("click", function() {
+            if (element.status == 0) {
+                button_delete.innerHTML = "<button class=\"button delete\">Ẩn</button>"
+            }
+            else
+            button_delete.innerHTML = "<button class=\"button delete\">Hiện</button>"
+            button_delete.addEventListener("click", function(e) {
+                e.preventDefault();
+                if (this.textContent == "Ẩn") {
+                    this.innerHTML = "<button class=\"button delete\">Hiện</button>";
+                } else {
+                    this.innerHTML = "<button class=\"button delete\">Ẩn</button>";
+                }
                 deleteProduct(element.id)
             })
             button.appendChild(button_update)
@@ -407,7 +417,6 @@
             },
             success: function(response) {
                 console.log(response)
-                loadProduct()
             },
             error: function(xhr, status, error) {
                 console.log(status)
