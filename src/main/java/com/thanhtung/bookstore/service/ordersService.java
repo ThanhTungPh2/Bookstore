@@ -9,7 +9,7 @@ public interface ordersService {
     public String deleteOder(int id);
     public String getAllOderByUserId(int userId, String status);
     public List<Orders> getAllOrderByEmail(String email);
-    public String getAllOrders();
+    public List<Orders> getAllOrders();
     public String getOder(int id);
     public String changeStatus(Orders o);
 }

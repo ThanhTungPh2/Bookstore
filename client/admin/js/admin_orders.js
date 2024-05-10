@@ -8,7 +8,7 @@ function loadOrders() {
           withCredentials: true // Thêm withCredentials vào XHR
       },
       success: function(response) {
-         let data = JSON.parse(response)
+         let data = response
          const filteredData = data.filter(item => item.status !== "Carts");
          generateOrder(filteredData.reverse())
       },
@@ -72,10 +72,10 @@ function generateOrder(data) {
         td1.textContent = element.id;
 
         var td2 = document.createElement("td");
-        td2.textContent = element.userName;
+        td2.textContent = element.name;
 
         var td3 = document.createElement("td");
-        td3.textContent = element.number;
+        td3.textContent = "0"+element.number;
 
         var td4 = document.createElement("td");
         td4.textContent = element.email;

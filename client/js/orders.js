@@ -16,7 +16,7 @@ $.ajax({
         });
         console.log(data)
         if (!data || data.length === 0) {
-            cart_detail.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p>";
+            cart_detail.innerHTML = "<p class=\"empty empty-card\">Bạn chưa từng mua hàng!</p>";
         }        
         
       },

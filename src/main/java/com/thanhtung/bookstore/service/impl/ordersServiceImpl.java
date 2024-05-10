@@ -86,29 +86,8 @@ public class ordersServiceImpl implements ordersService {
     }
 
     @Override
-    public String getAllOrders() {
-        List<Orders> lo = oRepository.findAllOrders();
-
-        ArrayNode order = jsonProcess.objectMapper.createArrayNode();
-        
-        for (Orders item : lo) {
-            ObjectNode result = jsonProcess.objectToObjectNode(item);
-            try {
-                ObjectNode updatedProduct = jsonProcess.jsonToObjectNode(cService.getAllCartByOrder(item.getId()));
-                String user_name = uService.getUsersById(item.getUserId()).orElseThrow().getName();
-                updatedProduct.remove("orderId");
-                updatedProduct.remove("userId");
-                result.set("carts", updatedProduct);
-                result.remove("userId");
-                result.set("userName", new TextNode(user_name));
-            }
-            catch(Exception e) {
-
-            }
-
-            order.add(result);
-        }
-        return jsonProcess.objectToJson(order);
+    public List<Orders> getAllOrders() {
+        return oRepository.findAllOrders();
     }
 
     @Override

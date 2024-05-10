@@ -23,8 +23,6 @@ public class Carts {
     private int id;
     @Column(name = "order_id")
     private int orderId ;
-    @Column(name = "user_id")
-    private int userId;
     @Column(name = "product_id")
     private int productId;    
 }

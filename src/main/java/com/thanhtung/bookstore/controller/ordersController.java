@@ -46,7 +46,7 @@ public class ordersController {
     }
     
     @GetMapping("/All")
-    public String getAllOrders() {
+    public List<Orders> getAllOrders() {
         return oService.getAllOrders();
     }
     

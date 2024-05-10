@@ -54,7 +54,7 @@ public class cartsServiceImpl implements cartService {
         
         ObjectNode result = objectMapper.createObjectNode();
         result.put("orderId", lc.get(0).getOrderId());
-        result.put("userId",  lc.get(0).getUserId());
+        result.put("userId",  id);
         // Khởi tạo một ArrayNode mới
         ArrayNode product = objectMapper.createArrayNode();
         result.set("product", product);
@@ -84,7 +84,6 @@ public class cartsServiceImpl implements cartService {
         
         ObjectNode result = objectMapper.createObjectNode();
         result.put("orderId", lc.get(0).getOrderId());
-        result.put("userId",  lc.get(0).getUserId());
         // Khởi tạo một ArrayNode mới
         ArrayNode product = objectMapper.createArrayNode();
         result.set("product", product);

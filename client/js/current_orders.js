@@ -11,13 +11,15 @@ $.ajax({
       success: function(response) {
         const data = JSON.parse(response);
         const filteredData = data.filter(item => item.status !== "Hoàn thành" && item.status !== "Carts");
+
+        console.log(filteredData)
         
         filteredData.reverse().forEach(element => {
             cart_detail.appendChild(new Order(element).item());
         });
         console.log(filteredData)
         if (!filteredData || filteredData.length === 0) {
-            cart_detail.innerHTML = "<p class=\"empty empty-card\">Giỏ hàng của bạn trống!</p>";
+            cart_detail.innerHTML = "<p class=\"empty empty-card\">Không có đơn hàng nào!</p>";
         }        
         
       },
