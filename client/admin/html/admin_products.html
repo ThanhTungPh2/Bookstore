@@ -170,7 +170,6 @@
             type: 'POST', // Phương thức gửi request
             url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
             data: JSON.stringify(formData_2), // Dữ liệu gửi đi
-            dataType: 'json',
             contentType:"application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true // Thêm withCredentials vào XHR
@@ -179,11 +178,12 @@
                console.log(response)
             },
             error: function(xhr, status, error) {
-               location.reload(true);
+               //location.reload(true);
+               console.log(status)
             }
         });
 
-      var formData = new FormData();
+         var formData = new FormData();
          var fileInput = document.getElementById('image-upload'); // giả sử 'fileInput' là id của thẻ input type="file"
 
          // Lấy file từ input và thêm vào FormData

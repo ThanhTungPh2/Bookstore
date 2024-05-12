@@ -35,7 +35,7 @@ $(document).ready(function() {
                 $('.message').show()
             },
             error: function(xhr, status, error) {
-                $('.message span').html('Email đã được đăng ký!')
+                $('.message span').html('Email đã được đăng ký bởi tài khoản khác!')
                 $('.message').show()
             }
         });

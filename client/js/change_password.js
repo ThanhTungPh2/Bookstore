@@ -31,6 +31,9 @@ $(document).ready(function() {
                 //Hiển thị message
                 $('.message span').html('Đổi mật khẩu thành công!')
                 $('.message').show()
+                setTimeout(function() {
+                    window.location.href = "../html/index.html"
+                }, 2000);
             },
             error: function(xhr, status, error) {
                 //Hiển thị message
