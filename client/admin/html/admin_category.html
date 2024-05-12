@@ -13,7 +13,10 @@
 </head>
 
 <body>
-
+   <div class="message">
+      <span></span>
+      <i class="fas fa-times"></i>
+   </div>
     <header class="header">
 
         <div class="flex">
@@ -83,20 +86,32 @@
             type: 'POST', // Phương thức gửi request
             url: 'http://localhost:8080/category', // Địa chỉ URL của endpoint server
             data: JSON.stringify(formData), // Dữ liệu gửi đi
-            dataType: 'json',
             contentType:"application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true // Thêm withCredentials vào XHR
             },
             success: function(response) {
-                console.log(response)
+               $('.message span').html("Thêm thể loại thành công")
+                $('.message').show()
+
+                setTimeout(function() {
+                  $('.message').hide()
+                  location.reload(true);
+                }, 2000);
             },
             error: function(xhr, status, error) {
-               console.log(status)
+               $('.message span').html("Thêm thể loại không thành công")
+                $('.message').show()
+
+                setTimeout(function() {
+                  $('.message').hide()
+                  location.reload(true);
+                }, 2000);
             }
         });
       })
    </script>
+   <script type="module" src="../../js/Model/Notice.js"></script>
 </body>
 
 </html>

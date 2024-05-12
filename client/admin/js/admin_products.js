@@ -25,7 +25,7 @@
     function loadProduct() {
         $.ajax({
             type: 'GET', // Phương thức gửi request
-            url: 'http://localhost:8080/products/all', // Địa chỉ URL của endpoint server
+            url: 'http://localhost:8080/products/all2', // Địa chỉ URL của endpoint server
             xhrFields: {
                 withCredentials: true // Thêm withCredentials vào XHR
             },
@@ -33,7 +33,7 @@
                 generatePaging(response);
             },
             error: function(xhr, status, error) {
-                productNew.html("<tr><td colspan='10'>Không có thể loại nào</td></tr>");
+                productNew.html("<tr><td colspan='10'>Không quyển sách nào</td></tr>");
             }
         });  
     }
@@ -344,13 +344,19 @@
                     type: 'PUT', // Phương thức gửi request
                     url: 'http://localhost:8080/products', // Địa chỉ URL của endpoint server
                     data: JSON.stringify(formData_2), // Dữ liệu gửi đi
-                    dataType: 'json',
                     contentType:"application/json; charset=utf-8",
                     xhrFields: {
                         withCredentials: true // Thêm withCredentials vào XHR
                     },
                     success: function(response) {
                         console.log(response)
+                        $('.message span').html("Cập nhật thành công!")
+                        $('.message').show()
+        
+                        setTimeout(function() {
+                          $('.message').hide()
+                          location.reload(true);
+                        }, 2000);
                     },
                     error: function(xhr, status, error) {
                         location.reload(true);
@@ -440,7 +446,7 @@
                     divElement.addEventListener("click", function() {
                         //Load product và sách mới nhất
                         sessionStorage.setItem("category_id", item.id);
-                        $.get('http://localhost:8080/products/byCategory?category_id='+item.id, function(data) {
+                        $.get('http://localhost:8080/products/byCategory2?category_id='+item.id, function(data) {
                             productNew.innerHTML = null;
                             generatePaging(data);
                         })

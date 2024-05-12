@@ -16,7 +16,10 @@
 </head>
 
 <body>
-
+   <div class="message">
+      <span></span>
+      <i class="fas fa-times"></i>
+   </div>
     <header class="header">
 
         <div class="flex">
@@ -175,11 +178,21 @@
                 withCredentials: true // Thêm withCredentials vào XHR
             },
             success: function(response) {
-               console.log(response)
+                $('.message span').html("Thêm sách thành công")
+                $('.message').show()
+
+                setTimeout(function() {
+                  $('.message').hide()
+                  location.reload(true);
+                }, 2000);
             },
             error: function(xhr, status, error) {
-               //location.reload(true);
-               console.log(status)
+               $('.message span').html("Thêm không thành công")
+                $('.message').show()
+
+                setTimeout(function() {
+                  location.reload(true);
+                }, 2000);
             }
         });
 
@@ -207,7 +220,7 @@
          });
       })
    </script>
-
+   <script type="module" src="../../js/Model/Notice.js"></script>
 </body>
 
 </html>

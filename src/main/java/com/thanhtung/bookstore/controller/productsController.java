@@ -33,6 +33,11 @@ public class productsController {
         return pService.getALLProducts();
     }
 
+    @GetMapping("/all2")
+    public List<Products> getAllProducts2() {
+        return pService.getALLProducts2();
+    }
+
     @GetMapping("/id")
     public Products getProducts(@RequestParam("id") int id){
         return pService.getProducts(id);
@@ -43,8 +48,13 @@ public class productsController {
         return pService.getProductsByCategoryId(id);
     }
 
+    @GetMapping("/byCategory2")
+    public List<Products> getProductsByCategoryId2(@RequestParam("category_id") int id){
+        return pService.getProductsByCategoryId2(id);
+    }
+
     @GetMapping("/byName")
-    public List<Products> getProductsByCategoryId(@RequestParam("name") String name){
+    public List<Products> getProductsByName(@RequestParam("name") String name){
         return pService.getProductsByName(name);
     }
 

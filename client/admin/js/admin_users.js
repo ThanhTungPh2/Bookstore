@@ -76,6 +76,10 @@ $(document).ready(function() {
                 deleteLink.textContent = "Hide"
                 deleteLink.style.backgroundColor = "red"
             }
+            if (element.role == "ADMIN") {
+                deleteLink.style.pointerEvents = "none";
+            }
+            
             deleteLink.className = "delete-btn";
             deleteLink.onclick = function() {
                 let status;
@@ -96,7 +100,6 @@ $(document).ready(function() {
                     type: 'PATCH', // Phương thức gửi request
                     url: 'http://localhost:8080/users/status', // Địa chỉ URL của endpoint server
                     data: JSON.stringify(formData), // Dữ liệu gửi đi
-                    dataType: 'json',
                     contentType:"application/json; charset=utf-8",
                     xhrFields: {
                         withCredentials: true // Thêm withCredentials vào XHR

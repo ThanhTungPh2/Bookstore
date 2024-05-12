@@ -9,6 +9,8 @@ public interface productsService {
     public String deleteProducts(int id);
     public Products getProducts(int id);
     public List<Products> getALLProducts();
+    public List<Products> getALLProducts2();
     public List<Products> getProductsByCategoryId(int id);
+    public List<Products> getProductsByCategoryId2(int id);
     public List<Products> getProductsByName(String name);
 }

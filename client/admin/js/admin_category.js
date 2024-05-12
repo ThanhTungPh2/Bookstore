@@ -130,18 +130,25 @@ function updateCategory(box, element) {
             id: element.id,
             name: $("input[name='update_name']").val(),
             describes: $("input[name='update_describes']").val(),
+            status: element.status
         }
+        console.log(formData, element)
         $.ajax({
             type: 'PATCH', // Phương thức gửi request
             url: 'http://localhost:8080/category/update', // Địa chỉ URL của endpoint server
             data: JSON.stringify(formData), // Dữ liệu gửi đi
-            dataType: 'json',
             contentType:"application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true // Thêm withCredentials vào XHR
             },
             success: function(response) {
-                console.log(response)
+                $('.message span').html("Cập nhật thể loại thành công")
+                $('.message').show()
+
+                setTimeout(function() {
+                  $('.message').hide()
+                  location.reload(true);
+                }, 2000);
             },
             error: function(xhr, status, error) {
                 console.log(status)

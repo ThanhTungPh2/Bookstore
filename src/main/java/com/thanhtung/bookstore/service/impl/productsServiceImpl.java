@@ -37,6 +37,11 @@ public class productsServiceImpl implements productsService{
     }
 
     @Override
+    public List<Products> getALLProducts2() {
+        return pRepository.findAllProducts2();
+    }
+
+    @Override
     public Products getProducts(int id) {
         return pRepository.findById(id).get();
     }
@@ -50,6 +55,11 @@ public class productsServiceImpl implements productsService{
     @Override
     public List<Products> getProductsByCategoryId(int id) {
         return pRepository.findAllProductsByCategoryId(id);
+    }
+
+    @Override
+    public List<Products> getProductsByCategoryId2(int id) {
+        return pRepository.findAllProductsByCategoryId2(id);
     }
     
     @Override

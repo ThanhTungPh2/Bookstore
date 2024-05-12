@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import com.thanhtung.bookstore.model.Orders;
 import com.thanhtung.bookstore.repository.ordersRepository;
 import com.thanhtung.bookstore.service.cartService;
 import com.thanhtung.bookstore.service.ordersService;
-import com.thanhtung.bookstore.service.userService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +22,6 @@ public class ordersServiceImpl implements ordersService {
     
     private final ordersRepository oRepository;
     private final cartService cService;
-    private final userService uService;
 
     @Override
     public String addOder(Orders o) {
