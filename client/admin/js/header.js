@@ -22,7 +22,8 @@ window.onscroll = () =>{
    accountBox.classList.remove('active');
 }
 
-$("#logout_btn").on("click", function() {
+$("#logout_btn").on("click", function(e) {
+   e.preventDefault()
    $.ajax({
        type: 'GET', // Phương thức gửi request
        url: 'http://localhost:8080/api/v1/auth/logout', // Địa chỉ URL của endpoint server

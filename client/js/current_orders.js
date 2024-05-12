@@ -24,5 +24,6 @@ $.ajax({
         
       },
       error: function(xhr, status, error) {
+        cart_detail.innerHTML = "<p class=\"empty empty-card\">Không có đơn hàng nào!</p>";
       }
   });

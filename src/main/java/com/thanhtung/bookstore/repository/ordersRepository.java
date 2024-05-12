@@ -17,7 +17,7 @@ public interface ordersRepository extends JpaRepository<Orders, Integer> {
     @Query("SELECT o FROM Orders o WHERE o.status = :status AND o.userId = :userId")
     public List<Orders> findAllByUserId(int userId, String status);
 
-    @Query("SELECT o FROM Orders o WHERE o.userId = :userId")
+    @Query("SELECT o FROM Orders o WHERE o.userId = :userId AND o.status <> 'Carts'")
     public List<Orders> findAllByUserId(int userId);
 
     @Query("SELECT o FROM Orders o")

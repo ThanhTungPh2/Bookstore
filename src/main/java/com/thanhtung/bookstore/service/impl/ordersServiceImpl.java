@@ -41,7 +41,9 @@ public class ordersServiceImpl implements ordersService {
         if (status != null)
             lo = oRepository.findAllByUserId(userId, status);
         else
-        lo = oRepository.findAllByUserId(userId);
+            lo = oRepository.findAllByUserId(userId);
+
+        System.out.println(lo);
 
         ArrayNode order = jsonProcess.objectMapper.createArrayNode();
         
