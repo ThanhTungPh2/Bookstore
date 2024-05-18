@@ -21,5 +21,6 @@ $.ajax({
         
       },
       error: function(xhr, status, error) {
+        cart_detail.innerHTML = "<p class=\"empty empty-card\">Bạn chưa từng mua hàng!</p>"
       }
   });
