@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
     
     
-    function add_to_carts(product_id, user_id, quantity) {
+    function add_to_carts(product_id, user_id, quantity, status) {
         if (sessionStorage.getItem("logged")) {
             window.location.href = "../html/index.html"
         }
@@ -36,7 +36,6 @@ $(document).ready(function() {
             if (quantity < 0) {
               $('.message span').html('Số lượng sách không được âm!')
               $('.message').show()
-              Carts.showCarts()
       
               setTimeout(function() {
                 $('.message').hide()
@@ -66,6 +65,9 @@ $(document).ready(function() {
         
                  setTimeout(function() {
                    $('.message').hide()
+                   if (status == 2) {
+                      window.location.href = "./checkout.html";
+                   }
                  }, 3000);
                 },
                 error: function(xhr, status, error) {
@@ -78,11 +80,10 @@ $(document).ready(function() {
         }
       } 
       $("input[name='add_to_cart']").on("click", function() {
-        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val())
+        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val(), 1)
       });
       $("input[name='mua_ngay']").on("click", function() {
-        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val())
-        window.location.href = "./checkout.html";
+        add_to_carts(sessionStorage.getItem("product_details_id"),Users.checkLoggedCookie(), $("input[name='product_quantity']").val(), 2)
       })
 });
 
