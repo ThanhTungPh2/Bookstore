@@ -122,37 +122,59 @@ export class Carts {
         productId : product_id,
         quantity : value
       }
-      $.ajax({
-        type: 'PUT', // Phương thức gửi request
-        url: 'http://localhost:8080/carts/update', // Địa chỉ URL của endpoint server
-        data: JSON.stringify(formData), // Dữ liệu gửi đi
-        contentType:"application/json; charset=utf-8",
-        xhrFields: {
-            withCredentials: true // Thêm withCredentials vào XHR
-        },
-        success: function(response) {
-          //Hiển thị message
-          $('.message span').html('Đã cập nhật sản phẩm trong giỏ hàng!')
+      $.get('http://localhost:8080/products/id?id='+product_id, function(data) {
+        if (value < 0) {
+          $('.message span').html('Số lượng sách không được âm!')
           $('.message').show()
           Carts.showCarts()
   
           setTimeout(function() {
             $('.message').hide()
           }, 3000);
-        },
-        error: function(xhr, status, error) {
-          //Hiển thị message
-          $('.message span').html('Cập nhật không thành công')
+        }
+        else if (data.quantity < value) {
+          $('.message span').html('Vượt quá số lượng sách trong kho!')
           $('.message').show()
+          Carts.showCarts()
   
           setTimeout(function() {
             $('.message').hide()
-            location.reload();
           }, 3000);
-
-          // Tải lại trang
         }
-      });
+        else {
+          $.ajax({
+            type: 'PUT', // Phương thức gửi request
+            url: 'http://localhost:8080/carts/update', // Địa chỉ URL của endpoint server
+            data: JSON.stringify(formData), // Dữ liệu gửi đi
+            contentType:"application/json; charset=utf-8",
+            xhrFields: {
+                withCredentials: true // Thêm withCredentials vào XHR
+            },
+            success: function(response) {
+              //Hiển thị message
+              $('.message span').html('Đã cập nhật sản phẩm trong giỏ hàng!')
+              $('.message').show()
+              Carts.showCarts()
+      
+              setTimeout(function() {
+                $('.message').hide()
+              }, 3000);
+            },
+            error: function(xhr, status, error) {
+              //Hiển thị message
+              $('.message span').html('Cập nhật không thành công')
+              $('.message').show()
+      
+              setTimeout(function() {
+                $('.message').hide()
+                location.reload();
+              }, 3000);
+    
+              // Tải lại trang
+            }
+          });
+        }
+      })
     }
     static deleteAllCart(id) {
       let formData = {
@@ -194,4 +216,5 @@ export class Carts {
     Carts.deleteAllCart(Users.checkLoggedCookie().id);
     document.getElementById("listcart").innerHTML = "";
   })
+  
   

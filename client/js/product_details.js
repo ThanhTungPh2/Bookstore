@@ -26,38 +26,55 @@ $(document).ready(function() {
         if (sessionStorage.getItem("logged")) {
             window.location.href = "../html/index.html"
         }
-    
-        if ($(".qty").data("value") > $(this).data("product_qty")) {
-            //Hiển thị message
-        }
         else {
           let formData = {
             userId : user_id.id,
             productId : product_id,
             quantity : quantity
           }
-          $.ajax({
-            type: 'POST', // Phương thức gửi request
-            url: 'http://localhost:8080/carts/add', // Địa chỉ URL của endpoint server
-            data: JSON.stringify(formData), // Dữ liệu gửi đi
-            contentType:"application/json; charset=utf-8",
-            xhrFields: {
-                withCredentials: true // Thêm withCredentials vào XHR
-            },
-            success: function(response) {
-             //Hiển thị message
-             $('.message span').html(response)
-             $('.message').show()
-    
-             setTimeout(function() {
-               $('.message').hide()
-             }, 3000);
-            },
-            error: function(xhr, status, error) {
-              //Hiển thị message
-              window.location.href = "../html/login.html"
+          $.get('http://localhost:8080/products/id?id='+product_id, function(data) {
+            if (quantity < 0) {
+              $('.message span').html('Số lượng sách không được âm!')
+              $('.message').show()
+              Carts.showCarts()
+      
+              setTimeout(function() {
+                $('.message').hide()
+              }, 3000);
             }
-          });
+            else if (data.quantity < quantity) {
+              $('.message span').html('Vượt quá số lượng sách trong kho!')
+              $('.message').show()
+      
+              setTimeout(function() {
+                $('.message').hide()
+              }, 3000);
+            }
+            else {
+              $.ajax({
+                type: 'POST', // Phương thức gửi request
+                url: 'http://localhost:8080/carts/add', // Địa chỉ URL của endpoint server
+                data: JSON.stringify(formData), // Dữ liệu gửi đi
+                contentType:"application/json; charset=utf-8",
+                xhrFields: {
+                    withCredentials: true // Thêm withCredentials vào XHR
+                },
+                success: function(response) {
+                 //Hiển thị message
+                 $('.message span').html(response)
+                 $('.message').show()
+        
+                 setTimeout(function() {
+                   $('.message').hide()
+                 }, 3000);
+                },
+                error: function(xhr, status, error) {
+                  //Hiển thị message
+                  window.location.href = "../html/login.html"
+                }
+              });
+            }
+          })
         }
       } 
       $("input[name='add_to_cart']").on("click", function() {
